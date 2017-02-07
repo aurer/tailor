@@ -1,0 +1,29 @@
+extends layout/default.pug
+block primary
+	h3.DocTitle Headings
+	h1 Heading 1
+	h2 Heading 2
+	h3 Heading 3
+	h4 Heading 4
+	h5 Heading 5
+	h6 Heading 6
+
+	h3.DocTitle Paragraphs
+
+	p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, voluptatibus dignissimos modi reiciendis enim quo esse, tenetur nihil, nemo iste ipsum repellat recusandae.
+	p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, voluptatibus dignissimos modi reiciendis enim quo esse, tenetur nihil, nemo iste ipsum repellat recusandae.
+
+	h3.DocTitle Preformated
+	pre
+		| // Pull
+		| .u-pull(@a, @b) when not (@a > @b) {
+		|	@pull: (100/@b)*@a;
+		|	position: relative;
+		|	left: ~"-@{pull}%";
+		|}
+
+	h3.DocTitle Links
+	p
+		a.randomLink(href="#") Standard link
+	p
+		a(href="/docs/") Visited link

@@ -1,0 +1,14 @@
+extends layout/default.pug
+block primary
+	h3.DocTitle Grid
+	for grid in [1,2,3,4,5,6,7,8]
+		.Grid.Grid--spaced
+			for cell in [1,2,3,4,5,6,7,8]
+				if grid < cell
+					if grid == 1
+						- var x = 0
+						while x++ < cell
+							div(class="Grid-cell u-size" + grid + 'of' + cell)
+					else
+						div(class="Grid-cell u-size" + grid + 'of' + cell)
+						div(class="Grid-cell u-size" + parseInt(cell-grid) + 'of' + cell)

@@ -1,0 +1,129 @@
+extends layout/default.pug
+block primary
+	form.Form
+		.Form-field
+			label Text
+			.Form-inputs
+				input(type="text")
+
+		.Form-field
+			label Search
+			.Form-inputs
+				input(type="search")
+
+		.Form-field
+			label Tel
+			.Form-inputs
+				input(type="tel")
+
+		.Form-field
+			label Url
+			.Form-inputs
+				input(type="url")
+
+		.Form-field
+			label Email
+			.Form-inputs
+				input(type="email")
+
+		.Form-field
+			label Password
+			.Form-inputs
+				input(type="password")
+
+		.Form-field
+			label Date
+			.Form-inputs
+				input(type="date")
+
+		.Form-field
+			label Month
+			.Form-inputs
+				input(type="month")
+
+		.Form-field
+			label Time
+			.Form-inputs
+				input(type="time")
+
+		.Form-field
+			label Number
+			.Form-inputs
+				input(type="number")
+
+		.Form-field
+			label Range
+			.Form-inputs
+				input(type="range")
+
+		.Form-field
+			label Color
+			.Form-inputs
+				input(type="color")
+
+		.Form-field
+			label Checkbox
+			.Form-inputs
+				input(type="checkbox")
+				label Yes
+
+		.Form-field
+			label Radio
+			.Form-inputs
+				input(type="radio")
+				label Yes
+
+		.Form-field
+			label File
+			.Form-inputs
+				input(type="file")
+
+		.Form-field
+			label Submit
+			.Form-inputs
+				input(type="submit")
+
+		.Form-field
+			label Image
+			.Form-inputs
+				input(type="image", src="http://placehold.it/140x30?text=Image+input")
+
+		.Form-field
+			label Reset
+			.Form-inputs
+				input(type="reset")
+
+		.Form-field
+			label Button
+			.Form-inputs
+				input(type="button", value="Button")
+
+		.Form-field
+			label Select
+			.Form-inputs
+				select
+					optgroup(label="Group 1")
+						option Option 1
+						option Option 2
+						option Option 3
+					optgroup(label="Group 2")
+						option Option 1
+						option Option 2
+						option Option 3
+
+		.Form-field
+			label Textarea
+			.Form-inputs
+				textarea(cols=30, rows=10)
+
+		.Form-field
+			label Progress
+			.Form-inputs
+				progress(max=100, value=50)
+				br
+				progress
+
+		.Form-field
+			label Output
+			.Form-inputs
+				output Some output

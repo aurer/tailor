@@ -1,0 +1,28 @@
+extends layout/default.pug
+block primary
+	h3.DocTitle Unordered list
+	ul
+		li List item
+		li List item
+			ul
+				li List item
+				li List item
+					ul
+						li List item
+						li List item
+	h3.DocTitle Ordered list
+	ol
+		li List item
+		li List item
+			ol
+				li List item
+				li List item
+					ol
+						li List item
+						li List item
+
+	h3.DocTitle Definition list
+	dl
+		for td in [1,2,3,4]
+			dt Title #{i}
+			dd Definition #{i}

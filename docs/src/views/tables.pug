@@ -1,0 +1,10 @@
+extends layout/default.pug
+block primary
+	<table>
+	<tr>
+		for th in [1,2,3]
+			th Header #{th}
+		for tr in [1,2,3,4,5]
+			tr
+				for td in [1,2,3]
+					td Cell #{td}

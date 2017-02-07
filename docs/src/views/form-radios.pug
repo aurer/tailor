@@ -1,0 +1,29 @@
+extends layout/default.pug
+block primary
+	form.Form
+		.Form-field
+			label Select some
+			.Form-inputs
+				label
+					input(type="checkbox")
+					| Yes
+				label
+					input(type="checkbox")
+					| No
+				label
+					input(type="checkbox")
+					| I don't know
+
+		.Form-field
+			label Select one
+			.Form-inputs
+				input(type="radio")
+				| Yes
+				input(type="radio")
+				| No
+				input(type="radio")
+				| I don't know
+
+		.Form-field
+			.Form-inputs
+				button(type="submit") Save
