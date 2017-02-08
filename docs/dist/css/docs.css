@@ -332,6 +332,170 @@ samp {
 .Grid-cell--auto {
   flex: 1 !important;
 }
+.Button,
+.Form button,
+.Form input[type=submit],
+.Form input[type=reset],
+.Form input[type=button] {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: .9em 1.5em;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.1;
+  margin: 0 .2em;
+  border: none;
+  background-color: #3E4C5D;
+  color: #ffffff;
+  font-size: .9em;
+}
+.Button:visited {
+  color: #ffffff;
+}
+.Button:hover,
+.Button:focus {
+  background-color: #25313e;
+}
+.Form fieldset {
+  border: none;
+  padding: 0;
+}
+.Form legend {
+  font-weight: bold;
+  font-style: italic;
+  margin: 0 0 24px;
+}
+.Form button,
+.Form input[type=submit],
+.Form input[type=reset],
+.Form input[type=button] {
+  height: 2.2em;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.Form-field {
+  margin-top: 12px;
+}
+.Form-field:first-of-type {
+  margin-top: 0;
+}
+.Form-field label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 6px;
+}
+.Form-field > label {
+  font-weight: bold;
+}
+@media screen and (min-width: 36em) {
+  .Form--inline .Form-field {
+    display: inline-block;
+    margin-right: 12px;
+  }
+}
+.Form-inputs input[type='text'],
+.Form-inputs input[type='search'],
+.Form-inputs input[type='tel'],
+.Form-inputs input[type='url'],
+.Form-inputs input[type='email'],
+.Form-inputs input[type='password'],
+.Form-inputs input[type='date'],
+.Form-inputs input[type='time'],
+.Form-inputs input[type='number'],
+.Form-inputs textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 2em;
+  padding: 5px 10px;
+  border: 1px solid #d0d0d0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.Form-inputs input[type='text']:focus,
+.Form-inputs input[type='search']:focus,
+.Form-inputs input[type='tel']:focus,
+.Form-inputs input[type='url']:focus,
+.Form-inputs input[type='email']:focus,
+.Form-inputs input[type='password']:focus,
+.Form-inputs input[type='date']:focus,
+.Form-inputs input[type='time']:focus,
+.Form-inputs input[type='number']:focus,
+.Form-inputs textarea:focus {
+  border-color: #3E4C5D;
+  box-shadow: 0 1px 3px rgba(62, 76, 93, 0.25);
+  outline: 0;
+}
+.Form-inputs input[type='checkbox'],
+.Form-inputs input[type='radio'] {
+  margin-right: 6px;
+  vertical-align: middle;
+  outline: none;
+}
+.Message,
+noscript {
+  padding: 12px 24px;
+  display: block;
+  margin-bottom: 24px;
+  background-color: #d0d0d0;
+  color: #5e5e5e;
+}
+.Message a {
+  color: #2a2a2a;
+  text-decoration: underline;
+}
+.Message--informative {
+  background-color: #78d4ff;
+  color: #00405e;
+}
+.Message--informative a {
+  color: #000000;
+}
+.Message--positive {
+  background-color: #9ed8a0;
+  color: #1b431c;
+}
+.Message--positive a {
+  color: #000000;
+}
+.Message--ambiguous {
+  background-color: #ffd476;
+  color: #5c3f00;
+}
+.Message--ambiguous a {
+  color: #000000;
+}
+.Message--negative {
+  background-color: #fbb0a7;
+  color: #841206;
+}
+.Message--negative a {
+  color: #230501;
+}
+.Section {
+  clear: both;
+}
+.Section-inner {
+  padding: 24px;
+  max-width: 68em;
+  margin: 0 auto;
+}
+.Section-inner:before,
+.Section-inner:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.Section--tall .Section-inner {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.Section--fullwidth .Section-inner {
+  padding-left: 0;
+  padding-right: 0;
+}
+.Section--nopad .Section-inner {
+  padding: 0;
+}
 [class*="u-size"] {
   flex-basis: auto;
 }
@@ -818,171 +982,6 @@ samp {
 }
 .u-clearfix:after {
   clear: both;
-}
-.Button,
-.Form button,
-.Form input[type=submit],
-.Form input[type=reset],
-.Form input[type=button] {
-  display: inline-block;
-  box-sizing: border-box;
-  padding: .8em 1.5em;
-  text-decoration: none;
-  text-align: center;
-  line-height: 1.1;
-  margin: 0 .2em;
-  border: none;
-  background-color: #3E4C5D;
-  color: #ffffff;
-  font-size: .9em;
-  border-radius: 4px;
-}
-.Button:visited {
-  color: #ffffff;
-}
-.Button:hover,
-.Button:focus {
-  background-color: #25313e;
-}
-.Form fieldset {
-  border: none;
-  padding: 0;
-}
-.Form legend {
-  font-weight: bold;
-  font-style: italic;
-  margin: 0 0 24px;
-}
-.Form button,
-.Form input[type=submit],
-.Form input[type=reset],
-.Form input[type=button] {
-  height: 2em;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.Form-field {
-  margin-top: 12px;
-}
-.Form-field:first-of-type {
-  margin-top: 0;
-}
-.Form-field label {
-  display: inline-block;
-  max-width: 100%;
-  margin-bottom: 6px;
-}
-.Form-field > label {
-  font-weight: bold;
-}
-@media screen and (min-width: 36em) {
-  .Form--inline .Form-field {
-    display: inline-block;
-    margin-right: 12px;
-  }
-}
-.Form-inputs input[type='text'],
-.Form-inputs input[type='search'],
-.Form-inputs input[type='tel'],
-.Form-inputs input[type='url'],
-.Form-inputs input[type='email'],
-.Form-inputs input[type='password'],
-.Form-inputs input[type='date'],
-.Form-inputs input[type='time'],
-.Form-inputs input[type='number'],
-.Form-inputs textarea {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  min-height: 2rem;
-  padding: 5px 10px;
-  border: 1px solid #d0d0d0;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.Form-inputs input[type='text']:focus,
-.Form-inputs input[type='search']:focus,
-.Form-inputs input[type='tel']:focus,
-.Form-inputs input[type='url']:focus,
-.Form-inputs input[type='email']:focus,
-.Form-inputs input[type='password']:focus,
-.Form-inputs input[type='date']:focus,
-.Form-inputs input[type='time']:focus,
-.Form-inputs input[type='number']:focus,
-.Form-inputs textarea:focus {
-  border-color: #3E4C5D;
-  box-shadow: 0 1px 3px rgba(62, 76, 93, 0.25);
-  outline: 0;
-}
-.Form-inputs input[type='checkbox'],
-.Form-inputs input[type='radio'] {
-  margin-right: 6px;
-  vertical-align: middle;
-  outline: none;
-}
-.Message,
-noscript {
-  padding: 12px 24px;
-  display: block;
-  margin-bottom: 24px;
-  background-color: #d0d0d0;
-  color: #5e5e5e;
-}
-.Message a {
-  color: #2a2a2a;
-  text-decoration: underline;
-}
-.Message--informative {
-  background-color: #78d4ff;
-  color: #00405e;
-}
-.Message--informative a {
-  color: #000000;
-}
-.Message--positive {
-  background-color: #9ed8a0;
-  color: #1b431c;
-}
-.Message--positive a {
-  color: #000000;
-}
-.Message--ambiguous {
-  background-color: #ffd476;
-  color: #5c3f00;
-}
-.Message--ambiguous a {
-  color: #000000;
-}
-.Message--negative {
-  background-color: #fbb0a7;
-  color: #841206;
-}
-.Message--negative a {
-  color: #230501;
-}
-.Section {
-  clear: both;
-}
-.Section-inner {
-  padding: 24px;
-  max-width: 68em;
-  margin: 0 auto;
-}
-.Section-inner:before,
-.Section-inner:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.Section--tall .Section-inner {
-  padding-top: 48px;
-  padding-bottom: 48px;
-}
-.Section--fullwidth .Section-inner {
-  padding-left: 0;
-  padding-right: 0;
-}
-.Section--nopad .Section-inner {
-  padding: 0;
 }
 html,
 body {
