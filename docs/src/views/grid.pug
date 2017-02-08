@@ -1,14 +1,59 @@
 extends layout/default.pug
 block primary
 	h3.DocTitle Grid
-	for grid in [1,2,3,4,5,6,7,8]
-		.Grid.Grid--spaced
-			for cell in [1,2,3,4,5,6,7,8]
-				if grid < cell
-					if grid == 1
+	.Grid
+		for i in [1,2,3,4]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid spaced
+	.Grid.Grid--spaced
+		for i in [1,2,3,4]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid spaced horizontally
+	.Grid.Grid--spaced.Grid--spacedHorizontally
+		for i in [1,2,3,4]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid spaced vertically
+	.Grid.Grid--spaced.Grid--spacedVertically
+		for i in [1,2,3,4]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid alignCenter
+	.Grid.Grid--spaced.Grid--alignCenter
+		for i in [1,2,3]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid alignEnd
+	.Grid.Grid--spaced.Grid--alignEnd
+		for i in [1,2,3]
+			.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid alignMiddle
+	.Grid.Grid--spaced.Grid--alignMiddle
+		.Grid-cell.u-size1of2
+		.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid alignBottom
+	.Grid.Grid--spaced.Grid--alignBottom
+		.Grid-cell.u-size1of2
+		.Grid-cell.u-size1of2
+
+	h3.DocTitle Grid fit
+	.Grid.Grid--spaced.Grid--fit
+		for i in [1,2,3,4]
+			.Grid-cell.u-size1of3
+
+	h3.DocTitle Grid
+	.Grid.Grid--spaced
+		for a in [1,2,3,4,5,6,7,8]
+			for b in [1,2,3,4,5,6,7,8]
+				if a < b
+					if a == 1
 						- var x = 0
-						while x++ < cell
-							div(class="Grid-cell u-size" + grid + 'of' + cell)
+						while x++ < b
+							div(class="Grid-cell u-size" + a + 'of' + b)
 					else
-						div(class="Grid-cell u-size" + grid + 'of' + cell)
-						div(class="Grid-cell u-size" + parseInt(cell-grid) + 'of' + cell)
+						div(class="Grid-cell u-size" + a + 'of' + b)
+						div(class="Grid-cell u-size" + parseInt(b-a) + 'of' + b)

@@ -211,21 +211,25 @@ html,body {
 
 	.Grid {
 		position: relative;
+		margin-bottom: @space;
 	}
 
 	.Grid-cell:before {
-		display: block;
-		padding: 5px;
-		font-size: .8em;
-	  text-align: center;
 		content: attr(class);
+		display: block;
+		padding: 5px 10px;
+		font-size: .8em;
 		transition-duration: .2s;
 		box-sizing: inherit;
-		flex: 0 0 100%;
-		display: flex;
-		outline: 1px solid rgba(37, 49, 62, 0.4);
-		color: rgba(37, 49, 62, 0.9);
 		background-color: rgba(37, 49, 62, 0.1);
+		color: rgba(37, 49, 62, 0.6);
+	}
+
+	.Grid--alignMiddle,
+	.Grid--alignBottom {
+		.Grid-cell:first-child:before {
+			height: 80px;
+		}
 	}
 }
 

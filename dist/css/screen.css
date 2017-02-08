@@ -270,20 +270,18 @@ samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
-/* Grid
-   ========================================================================== */
 .Grid {
   display: block;
   box-sizing: border-box;
-  margin: 0 0 20px;
+  margin: 0;
   padding: 0;
   text-align: left;
-  font-size: 0;
+  display: flex;
+  flex-flow: row wrap;
 }
-.Grid:before,
 .Grid:after {
-  display: table;
   content: '';
+  display: table;
   clear: both;
 }
 .Grid--spaced {
@@ -303,48 +301,39 @@ samp {
 }
 .Grid--alignCenter {
   text-align: center;
+  justify-content: center;
 }
-.Grid--alignRight {
-  text-align: right;
+.Grid--alignEnd {
+  justify-content: flex-end;
 }
 .Grid--alignMiddle {
-  vertical-align: middle;
-}
-.Grid--alignMiddle > .Grid-cell {
-  vertical-align: middle;
+  align-items: center;
 }
 .Grid--alignBottom {
-  display: flex;
   align-items: flex-end;
-}
-.Grid--fit {
-  display: flex;
 }
 .Grid--fit > .Grid-cell {
   flex: 1 1 0%;
 }
-.Grid--equalHeight {
-  display: flex;
-}
-.Grid--equalHeight > .Grid-cell {
-  display: flex;
-}
 .Grid-cell {
-  display: inline-block;
   box-sizing: inherit;
-  font-size: 16px;
   vertical-align: top;
   width: 100%;
+  flex-basis: 100%;
+  min-width: 0;
+  float: left;
+}
+.Grid-cell--alignRight {
+  text-align: right;
 }
 .Grid-cell--center {
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
-/*
- * Sizes
- */
+.Grid-cell--auto {
+  flex: 1 !important;
+}
 [class*="u-size"] {
-  flex-basis: auto !important;
-  /* 1 */
+  flex-basis: auto;
 }
 .u-size1of2 {
   width: 50%;
@@ -432,8 +421,7 @@ samp {
 }
 @media screen and (min-width: 20em) {
   [class*="u-sm-size"] {
-    flex-basis: auto !important;
-    /* 1 */
+    flex-basis: auto;
   }
   .u-sm-size1of2 {
     width: 50%;
@@ -522,8 +510,7 @@ samp {
 }
 @media screen and (min-width: 36em) {
   [class*="u-md-size"] {
-    flex-basis: auto !important;
-    /* 1 */
+    flex-basis: auto;
   }
   .u-md-size1of2 {
     width: 50%;
@@ -612,8 +599,7 @@ samp {
 }
 @media screen and (min-width: 52em) {
   [class*="u-lg-size"] {
-    flex-basis: auto !important;
-    /* 1 */
+    flex-basis: auto;
   }
   .u-lg-size1of2 {
     width: 50%;
@@ -702,8 +688,7 @@ samp {
 }
 @media screen and (min-width: 68em) {
   [class*="u-xl-size"] {
-    flex-basis: auto !important;
-    /* 1 */
+    flex-basis: auto;
   }
   .u-xl-size1of2 {
     width: 50%;

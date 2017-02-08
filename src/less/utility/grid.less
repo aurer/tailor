@@ -1,18 +1,15 @@
-/* Grid
-   ========================================================================== */
 .Grid {
   display: block;
   box-sizing: border-box;
-  margin: 0 0 20px;
+  margin: 0;
   padding: 0;
   text-align: left;
-  font-size: 0;
+  display: flex;
+  flex-flow: row wrap;
 
-  // Help with clearing
-  &:before,
   &:after {
-    display: table;
     content: '';
+    display: table;
     clear: both;
   }
 
@@ -44,57 +41,49 @@
   // Modifier: center align all grid cells
   &--alignCenter {
     text-align: center;
+    justify-content: center;
   }
 
   // Modifier: right align all grid cells
-  &--alignRight {
-    text-align: right;
+  &--alignEnd {
+    justify-content: flex-end;
   }
 
   // Modifier: middle-align grid cells
   &--alignMiddle {
-    vertical-align: middle;
-
-    > .Grid-cell {
-      vertical-align: middle;
-    }
+    align-items: center;
   }
 
   // Modifier: bottom-align grid cells
   &--alignBottom {
-    display: flex;
     align-items: flex-end;
   }
 
   // Modifier: allow cells to equal distribute width
-  // 1. Provide all values to avoid IE10 bug with shorthand flex - http://git.io/vllC7
-  // Use `0%` to avoid bug in IE10/11 with unitless flex basis - http://git.io/vllWx
   &--fit {
-    display: flex;
-
     > .Grid-cell {
-      flex: 1 1 0%; //1
-    }
-  }
-
-  // Modifier: all cells match height of tallest cell in a row
-  &--equalHeight {
-    display: flex;
-
-    > .Grid-cell {
-      display: flex;
+      flex: 1 1 0%;
     }
   }
 }
 
 .Grid-cell {
-  display: inline-block;
   box-sizing: inherit;
-  font-size: @base-font-size;
   vertical-align: top;
   width: 100%;
+  flex-basis: 100%;
+  min-width: 0;
+  float: left;
+}
+
+.Grid-cell--alignRight {
+  text-align: right;
 }
 
 .Grid-cell--center {
-  margin: 0 auto;
+  margin: 0 auto !important;
+}
+
+.Grid-cell--auto {
+  flex: 1 !important;
 }
