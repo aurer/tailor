@@ -116,14 +116,14 @@ optgroup {
 }
 a {
   background-color: transparent;
-  color: #F54646;
+  color: #E6B143;
 }
 a:active,
 a:hover {
   outline: 0;
 }
 a:visited {
-  color: #5e5e5e;
+  color: #444444;
 }
 ul,
 ol,
@@ -345,7 +345,7 @@ samp {
   line-height: 1.1;
   margin: 0 .2em;
   border: none;
-  background-color: #3E4C5D;
+  background-color: #29878B;
   color: #ffffff;
   font-size: .9em;
 }
@@ -354,7 +354,21 @@ samp {
 }
 .Button:hover,
 .Button:focus {
-  background-color: #25313e;
+  background-color: #0e5e62;
+}
+.Button--secondary {
+  background-color: #E6B143;
+}
+.Button--secondary:hover,
+.Button--secondary:focus {
+  background-color: #CE941D;
+}
+.Button--neutral {
+  background-color: #aaa;
+}
+.Button--neutral:hover,
+.Button--neutral:focus {
+  background-color: #848484;
 }
 .Form fieldset {
   border: none;
@@ -421,8 +435,8 @@ samp {
 .Form-inputs input[type='time']:focus,
 .Form-inputs input[type='number']:focus,
 .Form-inputs textarea:focus {
-  border-color: #3E4C5D;
-  box-shadow: 0 1px 3px rgba(62, 76, 93, 0.25);
+  border-color: #29878B;
+  box-shadow: 0 1px 3px rgba(41, 135, 139, 0.25);
   outline: 0;
 }
 .Form-inputs input[type='checkbox'],
@@ -437,7 +451,7 @@ noscript {
   display: block;
   margin-bottom: 24px;
   background-color: #d0d0d0;
-  color: #5e5e5e;
+  color: #444444;
 }
 .Message a {
   color: #2a2a2a;
@@ -983,160 +997,70 @@ noscript {
 .u-clearfix:after {
   clear: both;
 }
-html,
-body {
-  height: 100%;
-  font-family: 'Helevitca Neue', sans-serif;
-}
-.Entry {
-  text-align: center;
-  background-color: #25313e;
-  color: #ffffff;
-}
-.Entry .Intro {
-  margin-top: 4em;
-  margin-top: 40vh;
-  background-color: #9D1919;
-  padding: 48px;
-  max-width: 20em;
-  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
-  margin-left: auto;
-  margin-right: auto;
-}
-.Entry .Intro p {
-  margin: 0;
+.Logo {
+  font-size: 1.8em;
   text-transform: uppercase;
+  margin: 0 12px 24px;
 }
-@media screen and (min-width: 36em) {
-  .Page {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-}
-.Page-heading {
-  display: table;
-  width: 100%;
-  border-bottom: 1px solid #757F8C;
-}
-@media screen and (min-width: 36em) {
-  .Page-heading {
-    display: table-row;
-  }
-}
-.Page-heading-branding,
-.Page-heading-title {
-  display: table-cell;
-  vertical-align: top;
-  padding: 12px 24px;
-  vertical-align: middle;
-}
-.Page-heading-branding {
-  background-color: #C13333;
-}
-.Page-heading-branding h1 {
-  margin: 0;
-}
-.Page-heading-branding a {
-  color: inherit;
+.Logo a {
   text-decoration: none;
+  color: inherit;
 }
-.Page-heading-branding a:hover {
+.Page-navigation {
+  background-color: #2a2a2a;
   color: #ffffff;
-}
-.Page-heading-title {
-  background-color: #25313e;
-  color: #FBFDFF;
-  text-align: right;
-  text-transform: uppercase;
-}
-.Page-body {
-  height: 100%;
+  padding: 12px 0;
 }
 @media screen and (min-width: 36em) {
-  .Page-body {
-    display: table-row;
+  .Page-navigation {
+    width: 12em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
   }
 }
-@media screen and (min-width: 36em) {
-  .Page-body-nav,
-  .Page-body-content {
-    display: table-cell;
-    vertical-align: top;
-  }
-}
-@media screen and (min-width: 36em) {
-  .Page-heading-branding,
-  .Page-body-nav {
-    width: 35%;
-  }
-}
-@media screen and (min-width: 52em) {
-  .Page-heading-branding,
-  .Page-body-nav {
-    width: 25%;
-  }
-}
-@media screen and (min-width: 68em) {
-  .Page-heading-branding,
-  .Page-body-nav {
-    width: 20%;
-  }
-}
-.Page-body-nav {
-  background-color: #25313e;
-  color: #FBFDFF;
-  overflow: hidden;
-  position: relative;
-}
-.Page-body-nav a {
+.Page-navigation .Nav a {
   display: block;
-  padding: .6em 1em;
+  color: currentColor;
   text-decoration: none;
-  border-bottom: 1px solid #3E4C5D;
-  color: inherit;
-  color: #F54646;
-  position: relative;
-  transition: background 0.25s, color 0.25s, text-indent 0.5s;
+  padding: 0.5em 12px;
+  transition: color .2s, transform .2s;
 }
-.Page-body-nav a:first-letter {
-  text-transform: uppercase;
+.Page-navigation .Nav a.is-active {
+  color: #43999D;
+  transform: translateX(6px);
 }
-.Page-body-nav a:hover {
-  background-color: #232E3A;
-}
-.Page-body-nav a.is-active {
-  text-indent: 7px;
-  color: #0597F2;
-  background-color: #232E3A;
-}
-.Page-body-nav .Nav-indicator {
+.Page-navigation .Nav-indicator {
   position: absolute;
   top: 0;
   width: 5px;
   height: 0;
-  background-color: #0597F2;
+  background-color: #43999D;
 }
-.Page-body-nav .Nav-indicator.is-active {
+.Page-navigation .Nav-indicator.is-active {
   transition-property: height, transform;
-  transition-duration: 200ms;
-  transition-timing-function: ease-out;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.4, 0.3, 0, 1.01);
 }
-.Page-body-content {
-  padding: 1rem;
+.Page-content {
+  padding: 24px;
   position: relative;
-  overflow: hidden;
 }
-.Page-body-content:before,
-.Page-body-content:after {
+@media screen and (min-width: 36em) {
+  .Page-content {
+    margin-left: 12em;
+  }
+}
+.Page-content:before,
+.Page-content:after {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   pointer-events: none;
 }
-.Page-body-content:before {
+.Page-content:before {
   bottom: 0;
   content: '';
   background-color: #fff;
@@ -1145,11 +1069,11 @@ body {
   transition: opacity .2s;
   transition-delay: .3s;
 }
-.Page-body-content:after {
+.Page-content:after {
   content: 'Loading...';
   text-align: center;
   padding: 1em;
-  background-color: #0597F2;
+  background-color: #43999D;
   color: #fff;
   font-size: .9em;
   z-index: 101;
@@ -1158,23 +1082,18 @@ body {
   transition: opacity .2s, transform .2s;
   transition-delay: .5s;
 }
-.Page-body-content.is-fetching:before {
+.Page-content.is-fetching:before {
   opacity: 1;
 }
-.Page-body-content.is-fetching:after {
+.Page-content.is-fetching:after {
   opacity: 1;
   transform: translateY(0);
 }
-@media screen and (min-width: 36em) {
-  .Page-body-content {
-    padding: 2rem;
-  }
-}
-.Page-body-content .Grid {
+.Page-content .Grid {
   position: relative;
   margin-bottom: 24px;
 }
-.Page-body-content .Grid-cell:before {
+.Page-content .Grid-cell:before {
   content: attr(class);
   display: block;
   padding: 5px 10px;
@@ -1184,8 +1103,8 @@ body {
   background-color: rgba(37, 49, 62, 0.1);
   color: rgba(37, 49, 62, 0.6);
 }
-.Page-body-content .Grid--alignMiddle .Grid-cell:first-child:before,
-.Page-body-content .Grid--alignBottom .Grid-cell:first-child:before {
+.Page-content .Grid--alignMiddle .Grid-cell:first-child:before,
+.Page-content .Grid--alignBottom .Grid-cell:first-child:before {
   height: 80px;
 }
 .DocTitle {

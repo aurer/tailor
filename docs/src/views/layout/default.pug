@@ -8,16 +8,13 @@ html
 		title Tailor
 	body
 		.Page
-			.Page-heading
-				.Page-heading-branding
-					h1
-						a(href="index.html") Tailor
-				.Page-heading-title Front end framework
+			.Page-navigation
+				h1.Logo
+					a(href="index.html") Tailor
+				include inc/nav.pug
 
-			.Page-body
-				.Page-body-nav
-					include inc/nav.pug
-				.Page-body-content
-					noscript This page requires javascript which is currently disabled in your browser
-					block primary
-	script(src="dist/js/docs.js")
+			.Page-content
+				noscript This page requires javascript which is currently disabled in your browser
+				block primary
+
+		script(src="dist/js/docs.js")

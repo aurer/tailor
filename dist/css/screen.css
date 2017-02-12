@@ -116,14 +116,14 @@ optgroup {
 }
 a {
   background-color: transparent;
-  color: #F54646;
+  color: #E6B143;
 }
 a:active,
 a:hover {
   outline: 0;
 }
 a:visited {
-  color: #5e5e5e;
+  color: #444444;
 }
 ul,
 ol,
@@ -345,7 +345,7 @@ samp {
   line-height: 1.1;
   margin: 0 .2em;
   border: none;
-  background-color: #3E4C5D;
+  background-color: #29878B;
   color: #ffffff;
   font-size: .9em;
 }
@@ -354,7 +354,21 @@ samp {
 }
 .Button:hover,
 .Button:focus {
-  background-color: #25313e;
+  background-color: #0e5e62;
+}
+.Button--secondary {
+  background-color: #E6B143;
+}
+.Button--secondary:hover,
+.Button--secondary:focus {
+  background-color: #CE941D;
+}
+.Button--neutral {
+  background-color: #aaa;
+}
+.Button--neutral:hover,
+.Button--neutral:focus {
+  background-color: #848484;
 }
 .Form fieldset {
   border: none;
@@ -421,8 +435,8 @@ samp {
 .Form-inputs input[type='time']:focus,
 .Form-inputs input[type='number']:focus,
 .Form-inputs textarea:focus {
-  border-color: #3E4C5D;
-  box-shadow: 0 1px 3px rgba(62, 76, 93, 0.25);
+  border-color: #29878B;
+  box-shadow: 0 1px 3px rgba(41, 135, 139, 0.25);
   outline: 0;
 }
 .Form-inputs input[type='checkbox'],
@@ -437,7 +451,7 @@ noscript {
   display: block;
   margin-bottom: 24px;
   background-color: #d0d0d0;
-  color: #5e5e5e;
+  color: #444444;
 }
 .Message a {
   color: #2a2a2a;

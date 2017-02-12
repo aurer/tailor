@@ -6,7 +6,7 @@ var Docs = {
 	},
 
 	addNavigationIndicator: function() {
-		var nav = document.querySelector('.Page-body-nav');
+		var nav = document.querySelector('.Page-navigation');
 		var indicator = document.createElement('span');
 		indicator.className = 'Nav-indicator';
 		nav.appendChild(indicator);
@@ -33,7 +33,7 @@ var Docs = {
 
 	handleNavigation() {
 		var nav = document.querySelector('.Nav');
-		var content = document.querySelector('.Page-body-content');
+		var content = document.querySelector('.Page-content');
 		var indicator = document.querySelector('.Nav-indicator');
 
 		nav.querySelectorAll('a').forEach(function(link){
@@ -50,7 +50,7 @@ var Docs = {
 						content.classList.remove('is-fetching');
 						var doc = document.createElement('html');
 						doc.innerHTML = res;
-						var resContent = doc.querySelector('.Page-body-content').innerHTML;
+						var resContent = doc.querySelector('.Page-content').innerHTML;
 						content.innerHTML = resContent;
 						history.replaceState({}, '', href);
 					});
