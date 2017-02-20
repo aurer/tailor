@@ -1,40 +1,100 @@
 @import '../../../src/less/screen.less';
+@mast-height: 6em;
+
+.Page {
+	padding-top: @mast-height;
+}
 
 .Logo {
-	font-size: 1.8em;
-	text-transform: uppercase;
-	margin: 0 @space-sm @space;
+	font-size: 1.6em;
+	margin: 0;
+	line-height: 1.2;
+	font-weight: lighter;
 
 	a {
 		text-decoration: none;
-		color: inherit;
+		color: @color-neutral-lightest;
 	}
 }
 
-.Page-navigation {
+.Page-header {
 	background-color: @color-neutral-darkest;
+	color: @color-neutral-darker;
+	height: @mast-height;
+	overflow: hidden;
+	padding: 2em @space;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 20;
+}
+
+.Nav-handle {
+	display: block;
+	border: none;
+	background-color: transparent;
+	text-align: left;
+	outline: none;
+	position: absolute;
+	top: 3.4em;
+	right: @space;
+
+	svg {
+		fill: #fff;
+	}
+
+	@media @mq-md {
+		display: none;
+	}
+}
+
+.Page-nav {
+	position: relative;
+	z-index: 10;
+	background-color: @color-neutral-darker;
 	color: @color-neutral-lightest;
+	display: none;
 	padding: @space-sm 0;
 
 	@media @mq-md {
-		width: 12em;
+		width: 15em;
 		position: fixed;
-		top: 0;
+		top: @mast-height;
 		left: 0;
 		bottom: 0;
+		display: block;
+	}
+
+	@media @mq-xl {
+		width: 20%;
+	}
+
+	&.is-visible {
+		display: block;
 	}
 
 	.Nav {
+		font-size: .9em;
+
 		a {
 			display: block;
 			color: currentColor;
+			padding: .5em @space;
 			text-decoration: none;
-			padding: .5em @space-sm;
-			transition: color .2s, transform .2s;
+			transition: color .3s, text-indent .3s;
+			color: inherit;
+
+			@media @mq-md {
+				padding: 1em @space;
+			}
+
+			@media @mq-xl {
+				padding: .7rem 2rem;
+			}
 
 			&.is-active {
-				color: @color-primary-lighter;
-				transform: translateX(@space-xs);
+				color: @color-primary-light;
+				text-indent: .5em;
 			}
 		}
 	}
@@ -42,9 +102,15 @@
 	.Nav-indicator {
 		position: absolute;
     top: 0;
+		left: 0;
     width: 5px;
-    height: 0;
-    background-color: @color-primary-lighter;
+    height: 100%;
+		display: none;
+		background-color: @color-primary-light;
+
+		@media @mq-md {
+			display: block;
+		}
 
 		&.is-active {
 			transition-property: height, transform;
@@ -54,12 +120,22 @@
 	}
 }
 
-.Page-content {
+.Page-main {
 	padding: @space;
 	position: relative;
+	overflow: auto;
+	position: fixed;
+	top: @mast-height;
+	left: 0;
+	bottom: 0;
+	right: 0;
 
 	@media @mq-md {
-		margin-left: 12em;
+		left: 15em;
+	}
+
+	@media @mq-xl {
+		left: 20%;
 	}
 
 	&:before,
@@ -135,4 +211,42 @@
 	text-transform: uppercase;
 	font-style: italic;
 	font-size: .9rem;
+	margin: 1em 0;
 }
+
+
+.Color {
+	margin-bottom: @space-xs;
+
+	&:before {
+		content: '';
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+		margin-right: @space-sm;
+		outline: 1px solid fade(#000, 20%);
+	}
+}
+
+.Color--primary-lighter:before {	background-color: @color-primary-lighter; }
+.Color--primary-light:before {	background-color: @color-primary-light; }
+.Color--primary:before {	background-color: @color-primary; }
+.Color--primary-dark:before {	background-color: @color-primary-dark; }
+.Color--primary-darker:before {	background-color: @color-primary-darker; }
+.Color--secondary-lighter:before {	background-color: @color-secondary-lighter; }
+.Color--secondary-light:before {	background-color: @color-secondary-light; }
+.Color--secondary:before {	background-color: @color-secondary; }
+.Color--secondary-dark:before {	background-color: @color-secondary-dark; }
+.Color--secondary-darker:before {	background-color: @color-secondary-darker; }
+.Color--neutral-lightest:before {	background-color: @color-neutral-lightest; }
+.Color--neutral-lighter:before {	background-color: @color-neutral-lighter; }
+.Color--neutral-light:before {	background-color: @color-neutral-light; }
+.Color--neutral:before {	background-color: @color-neutral; }
+.Color--neutral-dark:before {	background-color: @color-neutral-dark; }
+.Color--neutral-darker:before {	background-color: @color-neutral-darker; }
+.Color--neutral-darkest:before {	background-color: @color-neutral-darkest; }
+.Color--message-info:before {	background-color: @color-message-info; }
+.Color--message-success:before {	background-color: @color-message-success; }
+.Color--message-warning:before {	background-color: @color-message-warning; }
+.Color--message-error:before {	background-color: @color-message-error; }

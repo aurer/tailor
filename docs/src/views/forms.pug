@@ -1,5 +1,81 @@
 extends layout/default.pug
 block primary
+	h3.DocTitle Default form
+	form
+		fieldset
+			legend Form legend
+			div
+				label Name
+				div
+					input(type="text", placeholder="e.g. Bobby")
+
+			div
+				label Email
+				div
+					input(type="email", placeholder="e.g.bobby@gmail.com")
+
+			div
+				input(type="submit")
+
+	h3.DocTitle Standard form
+	form.Form
+		fieldset
+			legend Form legend
+			.Form-field
+				label Name
+				.Form-inputs
+					input(type="text", placeholder="e.g. Bobby")
+			.Form-field
+				label Email
+				.Form-inputs
+					input(type="email", placeholder="e.g.bobby@gmail.com")
+			.Form-field
+				.Form-inputs
+					input(type="submit")
+
+	h3.DocTitle Form inline
+	form.Form.Form--inline
+		.Form-field
+			label Username
+			.Form-inputs
+				input(type="text")
+		.Form-field
+			label Password
+			.Form-inputs
+				input(type="password")
+		.Form-field
+			.Form-inputs
+				button(type="submit") Log in
+
+	h3.DocTitle Form radios
+	form.Form
+		.Form-field
+			label Select some
+			.Form-inputs.Form-inputs--inline
+				label
+					input(type="checkbox")
+					| Yes
+				label
+					input(type="checkbox")
+					| No
+				label
+					input(type="checkbox")
+					| I don't know
+
+		.Form-field
+			label Select one
+			.Form-inputs.Form-inputs--inline
+				label
+					input(type="radio", name="radio", value="1")
+					| Yes
+				label
+					input(type="radio", name="radio", value="2")
+					| No
+				label
+					input(type="radio", name="radio", value="3")
+					| I don't know
+
+	h3.DocTitle Form elements
 	form.Form
 		.Form-field
 			label Text
@@ -119,11 +195,6 @@ block primary
 		.Form-field
 			label Progress
 			.Form-inputs
-				progress(max=100, value=50)
-				br
 				progress
-
-		.Form-field
-			label Output
-			.Form-inputs
-				output Some output
+				br
+				progress(max=100, value=50)

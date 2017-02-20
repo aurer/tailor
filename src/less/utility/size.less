@@ -12,6 +12,10 @@
     flex-basis: auto;
   }
 
+  .u@{prefix}-sizeFull {
+    width: 100%;
+  }
+
   .size(1,2, @prefix);
   .size(1,3, @prefix);
   .size(1,4, @prefix);
@@ -59,15 +63,4 @@
 
 @media @mq-xl {
   .create-sizes(@grid-columns, -xl);
-}
-
-// =======================
-// Intrinsic sizes
-// =======================
-
-// Make an element the width of its parent.
-.u-sizeFull {
-  box-sizing: border-box !important;
-  display: block !important;
-  width: 100% !important;
 }

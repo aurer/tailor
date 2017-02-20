@@ -1,4 +1,3 @@
-- var items = ["Grid", "Typography", "Form elements", "Form inline", "Form radios", "Tables", "Lists", "Messages", "Buttons"]
 .Nav
-	for item in items
-		a(href=item.toLowerCase().replace(' ', '-') + '.html', re;="prefetch")= item
+	for view in views
+		a(href=view.link, rel="prefetch")= view.title

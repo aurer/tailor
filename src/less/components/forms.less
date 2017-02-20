@@ -15,7 +15,7 @@
 	input[type=submit],
 	input[type=reset],
 	input[type=button] {
-		&:extend(.Button);
+		&:extend(.Button all);
 		height: 2.2em;
 		padding-top: 0;
 		padding-bottom: 0;
@@ -82,5 +82,16 @@
 		margin-right: @space-xs;
 		vertical-align: middle;
 		outline: none;
+	}
+}
+
+.Form-inputs--inline {
+	label {
+		margin-right: @space;
+		vertical-align: middle;
+	}
+
+	input {
+		margin: 0 0 .3em;
 	}
 }

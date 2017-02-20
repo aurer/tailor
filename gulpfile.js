@@ -6,6 +6,7 @@ var pug = require('gulp-pug');
 var del = require('del');
 var run = require('run-sequence');
 var debug = require('gulp-debug');
+var fs = require('fs');
 
 var src = './src';
 var dist = './dist';
@@ -40,9 +41,18 @@ gulp.task('js', function() {
 
 // Compile Pug
 gulp.task('views', function() {
+	var views = fs.readdirSync('./docs/src/views')
+		.filter(file => !file.match(/(layout|index)/))
+		.map(file => {
+			return {
+				filename: file,
+				link: file.replace('.pug', '.html'),
+				title: file.charAt(0).toUpperCase() + file.slice(1).replace('.pug', '').replace('-', ' ')
+			}
+		});
 	return gulp.src(`docs/src/views/*.pug`)
 		.pipe(plumber())
-		.pipe(pug())
+		.pipe(pug({data: {views: views}}))
 		.pipe(gulp.dest(`docs/`))
 		.pipe(server.stream());
 });
@@ -61,7 +71,8 @@ gulp.task('serve', function() {
 	server.init({
 		server: {
 			baseDir: '.'
-		}
+		},
+		notify: false
 	});
 });
 
