@@ -13,28 +13,9 @@ var Docs = {
 		indicator.className = 'Nav-indicator';
 		nav.appendChild(indicator);
 		var location = window.location.origin + window.location.pathname;
-		document.querySelectorAll('.Nav a').forEach(function(a){
-			if (a.href == location) {
-				return Docs.updateNavIndicator(a);
-			}
-		});
-	},
-
-	updateNavIndicator: function(a) {
-		var indicator = document.querySelector('.Nav-indicator');
-
-		var currenActiveLinks = document.querySelectorAll('.Nav a.is-active');
-		currenActiveLinks.forEach(function(link){ link.classList.remove('is-active')});
-
-		var box = a.getBoundingClientRect();
-		var top = a.offsetTop;
-		a.classList.add('is-active');
-		indicator.style.height = box.height + 'px';
-		indicator.style.transform = 'translateY(' + top + 'px)'
 	},
 
 	addNavHandle: function() {
-		var header = document.querySelector('.Page-header');
 		var nav = document.querySelector('.Page-nav');
 		var navHandle = document.createElement('button');
 
@@ -48,7 +29,7 @@ var Docs = {
 			var handle = e.target;
 			nav.classList.toggle('is-visible');
 		}
-		header.append(navHandle);
+		nav.append(navHandle);
 	},
 
 
@@ -56,15 +37,14 @@ var Docs = {
 		var pageNav = document.querySelector('.Page-nav');
 		var nav = document.querySelector('.Nav');
 		var content = document.querySelector('.Page-main');
-		var indicator = document.querySelector('.Nav-indicator');
 
-		nav.querySelectorAll('a').forEach(function(link){
+		nav.querySelectorAll('a:not(.Nav-github)').forEach(function(link){
 			var href = link.href;
 			link.onclick = function(e) {
-				Docs.updateNavIndicator(e.target);
 				pageNav.classList.remove('is-visible');
-				indicator.classList.add('is-active');
 				content.classList.add('is-fetching');
+				e.target.parentNode.childNodes.forEach(node => node.classList.remove('is-active'));
+				e.target.classList.add('is-active');
 				fetch(href)
 					.then(function(res){
 						return res.text()

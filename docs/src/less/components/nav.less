@@ -1,0 +1,60 @@
+.Nav {
+	padding: 1rem 0;
+	display: none;
+	padding-bottom: @space-md;
+
+	@media @mq-md {
+		display: block;
+	}
+
+	a {
+		display: block;
+		text-decoration: none;
+		padding: 1vh 2rem;
+
+		&:hover,
+		&:focus,
+		&.is-active {
+			background-color: fade(#fff, 30%);
+		}
+
+		&.is-active {
+			border-right: 4px solid #0F8FFE;
+			color: #0F8FFE;
+		}
+	}
+
+	.is-visible & {
+		display: block;
+	}
+
+	.Nav-github {
+		position: absolute;
+		bottom: 0;
+		height: @space-md;
+		left: 0;
+		padding: 0 @space;
+		line-height: @space-md;
+		background-color: #d8dfe5;
+		width: 100%;
+	}
+}
+
+.Nav-handle {
+	display: block;
+	border: none;
+	background-color: transparent;
+	text-align: left;
+	outline: none;
+	position: absolute;
+	top: 2.5rem;
+	right: @space;
+
+	svg {
+		fill: #000;
+	}
+
+	@media @mq-md {
+		display: none;
+	}
+}
