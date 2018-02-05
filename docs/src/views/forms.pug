@@ -8,7 +8,6 @@ block primary
 				label Name
 				div
 					input(type="text", placeholder="e.g. Bobby")
-
 			div
 				label Email
 				div
@@ -24,14 +23,28 @@ block primary
 			.Form-field
 				label Name
 				.Form-inputs
-					input(type="text", placeholder="e.g. Bobby")
+					input(type="text", placeholder="e.g. John Smith")
 			.Form-field
 				label Email
 				.Form-inputs
-					input(type="email", placeholder="e.g.bobby@gmail.com")
-			.Form-field
-				.Form-inputs
-					input(type="submit")
+					input(type="email", placeholder="e.g. johnsmith@example.com")
+			input(type="submit").Button.Button--primary
+	pre
+		code.example
+			= '<form class="Form">\n'
+			= '\t<div class="Form-field">\n'
+			= '\t\t<label>Name</label>\n'
+			= '\t\t<div class="Form-inputs">\n'
+			= '\t\t\t<input type="text" name="name" placeholder="e.g. John Smith" />\n'
+			= '\t\t</div>\n'
+			= '\t</div>\n'
+			= '\t<div class="Form-field">\n'
+			= '\t\t<label>Email</label>\n'
+			= '\t\t<div class="Form-inputs">\n'
+			= '\t\t\t<input type="email" name="email" placeholder="e.g. johnsmith@example.com" />\n'
+			= '\t\t</div>\n'
+			= '\t</div>\n'
+			= '</form>'
 
 	h3.DocTitle Form inline
 	form.Form.Form--inline
@@ -198,3 +211,4 @@ block primary
 				progress
 				br
 				progress(max=100, value=50)
+

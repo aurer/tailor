@@ -67,11 +67,11 @@ textarea,
 select {
   height: 2.25rem;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #c6cdd3;
+  border: 1px solid #d5d9dd;
   box-shadow: none;
   box-sizing: border-box;
   background-color: #ffffff;
-  color: #384149;
+  color: #394047;
   line-height: normal;
   vertical-align: middle;
 }
@@ -90,7 +90,7 @@ textarea {
 input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=image]):focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #0F8FFE;
+  border: 1px solid #1f88e5;
   outline: 0;
 }
 label,
@@ -124,14 +124,14 @@ input:not([type="checkbox"], [type=radio]) {
 }
 a {
   background-color: transparent;
-  color: #fe7e0f;
+  color: #e93459;
 }
 a:active,
 a:hover {
   outline: 0;
 }
 a:visited {
-  color: #384149;
+  color: #394047;
 }
 ul,
 ol,
@@ -267,18 +267,30 @@ hr {
   box-sizing: content-box;
   height: 0;
   border: none;
-  border-top: 1px inset #9ba7b2;
+  border-top: 1px inset #9ca7b0;
+}
+code {
+  border: 1px solid #d5d9dd;
+  background-color: #f1f3f4;
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  overflow: auto;
 }
 pre {
   overflow: auto;
   tab-size: 2;
+  border-radius: 4px;
+}
+pre code {
+  display: block;
+  padding: 0.75rem;
 }
 code,
 kbd,
 pre,
 samp {
   font-family: monospace, monospace;
-  font-size: 1em;
+  font-size: .9em;
 }
 .Grid {
   display: block;
@@ -337,81 +349,6 @@ samp {
 .Grid-cell--auto {
   flex: 1 !important;
 }
-.Button,
-.Form button,
-.Form input[type=submit],
-.Form input[type=reset],
-.Form input[type=button] {
-  display: inline-block;
-  height: 2.25rem;
-  padding: 0.5rem 1.5rem;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: .75rem;
-  letter-spacing: .05rem;
-  font-weight: bold;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 1px solid #c6cdd3;
-  outline: none;
-  cursor: pointer;
-}
-.Button:last-child,
-.Form button:last-child,
-.Form input[type=submit]:last-child,
-.Form input[type=reset]:last-child,
-.Form input[type=button]:last-child {
-  margin-right: 0;
-}
-.Button:visited,
-.Form button:visited,
-.Form input[type=submit]:visited,
-.Form input[type=reset]:visited,
-.Form input[type=button]:visited {
-  color: #ffffff;
-}
-.Button:hover,
-.Button:focus,
-.Form button:hover,
-.Form button:focus,
-.Form input[type=submit]:hover,
-.Form input[type=submit]:focus,
-.Form input[type=reset]:hover,
-.Form input[type=reset]:focus,
-.Form input[type=button]:hover,
-.Form input[type=button]:focus {
-  background-color: #e3e6ea;
-}
-.Button--primary {
-  background-color: #0F8FFE;
-  border-color: #0F8FFE;
-  color: #ffffff;
-}
-.Button--primary:hover,
-.Button--primary:focus {
-  background-color: #57b1fe;
-}
-.Button--secondary {
-  background-color: #fe7e0f;
-  border-color: #fe7e0f;
-  color: #ffffff;
-}
-.Button--secondary:hover,
-.Button--secondary:focus {
-  background-color: #fea557;
-}
-.Button--neutral {
-  background-color: #9ba7b2;
-  border-color: #9ba7b2;
-  color: #ffffff;
-}
-.Button--neutral:hover,
-.Button--neutral:focus {
-  background-color: #c6cdd3;
-}
 .Form fieldset {
   border: none;
   padding: 0;
@@ -431,13 +368,13 @@ samp {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  border: 1px solid #c6cdd3;
+  border: 1px solid #d5d9dd;
   border-radius: 4px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .Form-inputs input:not([type=checkbox]):not([type=radio]):not([type=image]):focus,
 .Form-inputs textarea:focus {
-  border-color: #0F8FFE;
+  border-color: #1f88e5;
   outline: 0;
 }
 .Form-inputs input[type='checkbox'],
@@ -460,16 +397,83 @@ samp {
 .Form-inputs--inline input {
   margin: 0 0 .3em;
 }
+.Button {
+  display: inline-block;
+  height: 2.25rem;
+  padding: 0.5rem 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: .75rem;
+  letter-spacing: .05rem;
+  font-weight: bold;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #d5d9dd;
+  outline: none;
+  cursor: pointer;
+}
+.Button:last-child {
+  margin-right: 0;
+}
+.Button:visited {
+  color: #ffffff;
+}
+.Button:hover,
+.Button:focus {
+  background-color: #f1f3f4;
+}
+.Button--primary,
+.Form button,
+.Form input[type=submit],
+.Form input[type=reset],
+.Form input[type=button] {
+  background-color: #1f88e5;
+  border-color: #1f88e5;
+  color: #ffffff;
+}
+.Button--primary:hover,
+.Button--primary:focus,
+.Form button:hover,
+.Form button:focus,
+.Form input[type=submit]:hover,
+.Form input[type=submit]:focus,
+.Form input[type=reset]:hover,
+.Form input[type=reset]:focus,
+.Form input[type=button]:hover,
+.Form input[type=button]:focus {
+  background-color: #62aced;
+}
+.Button--secondary {
+  background-color: #e93459;
+  border-color: #e93459;
+  color: #ffffff;
+}
+.Button--secondary:hover,
+.Button--secondary:focus {
+  background-color: #f0718b;
+}
+.Button--neutral {
+  background-color: #9ca7b0;
+  border-color: #9ca7b0;
+  color: #ffffff;
+}
+.Button--neutral:hover,
+.Button--neutral:focus {
+  background-color: #d5d9dd;
+}
 .Message,
 noscript {
   padding: 0.75rem 1.5rem;
   display: block;
   margin-bottom: 1.5rem;
-  background-color: #c6cdd3;
-  color: #384149;
+  background-color: #d5d9dd;
+  color: #394047;
 }
 .Message a {
-  color: #22272c;
+  color: #22272b;
   text-decoration: underline;
 }
 .Message--info {
@@ -1027,30 +1031,35 @@ a {
   color: inherit;
   transition: all .3s;
 }
+code.example {
+  background-color: #fff;
+  padding: 1.5rem;
+}
 .Page {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 @media screen and (min-width: 36em) {
   .Page {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     flex-direction: row;
   }
 }
 .Page-title {
-  padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.03);
-  color: #737C85;
+  padding: 1rem 1.5rem;
+  background-color: #1f88e5;
+  color: #ffffff;
   font-size: 1.5em;
   font-weight: 300;
   margin: 0;
 }
 .Page-title a {
   text-decoration: none;
+  color: inherit;
 }
 .Page-nav {
   background: #000;
@@ -1133,7 +1142,7 @@ a {
   }
 }
 .DocTitle {
-  color: #9ba7b2;
+  color: #9ca7b0;
   text-transform: uppercase;
   font-style: italic;
   font-size: .9rem;
@@ -1152,7 +1161,7 @@ a {
 .Nav a {
   display: block;
   text-decoration: none;
-  padding: 1vh 2rem;
+  padding: 0.75rem 1.5rem;
 }
 .Nav a:hover,
 .Nav a:focus,
@@ -1160,8 +1169,8 @@ a {
   background-color: rgba(255, 255, 255, 0.3);
 }
 .Nav a.is-active {
-  border-right: 4px solid #0F8FFE;
-  color: #0F8FFE;
+  border-right: 4px solid #e93459;
+  color: #e93459;
 }
 .is-visible .Nav {
   display: block;
@@ -1183,11 +1192,11 @@ a {
   text-align: left;
   outline: none;
   position: absolute;
-  top: 2.5rem;
+  top: 1.5rem;
   right: 1.5rem;
 }
 .Nav-handle svg {
-  fill: #000;
+  fill: #ffffff;
 }
 @media screen and (min-width: 36em) {
   .Nav-handle {
@@ -1225,55 +1234,55 @@ a {
   outline: 1px solid rgba(0, 0, 0, 0.2);
 }
 .Color--primary-lighter:before {
-  background-color: #9fd2ff;
+  background-color: #a5cff5;
 }
 .Color--primary-light:before {
-  background-color: #57b1fe;
+  background-color: #62aced;
 }
 .Color--primary:before {
-  background-color: #0F8FFE;
+  background-color: #1f88e5;
 }
 .Color--primary-dark:before {
-  background-color: #0b64b2;
+  background-color: #165fa0;
 }
 .Color--primary-darker:before {
-  background-color: #063966;
+  background-color: #0c365c;
 }
 .Color--secondary-lighter:before {
-  background-color: #ffcb9f;
+  background-color: #f6aebd;
 }
 .Color--secondary-light:before {
-  background-color: #fea557;
+  background-color: #f0718b;
 }
 .Color--secondary:before {
-  background-color: #fe7e0f;
+  background-color: #e93459;
 }
 .Color--secondary-dark:before {
-  background-color: #b2580b;
+  background-color: #a3243e;
 }
 .Color--secondary-darker:before {
-  background-color: #b2580b;
+  background-color: #a3243e;
 }
 .Color--white:before {
   background-color: #ffffff;
 }
 .Color--neutral-lighter:before {
-  background-color: #e3e6ea;
+  background-color: #f1f3f4;
 }
 .Color--neutral-light:before {
-  background-color: #c6cdd3;
+  background-color: #d5d9dd;
 }
 .Color--neutral:before {
-  background-color: #9ba7b2;
+  background-color: #9ca7b0;
 }
 .Color--neutral-dark:before {
-  background-color: #6f8191;
+  background-color: #72818e;
 }
 .Color--neutral-darker:before {
-  background-color: #384149;
+  background-color: #394047;
 }
 .Color--black:before {
-  background-color: #22272c;
+  background-color: #22272b;
 }
 .Color--message-info:before {
   background-color: #00a8f7;

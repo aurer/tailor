@@ -13,14 +13,13 @@ block primary
 	p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, voluptatibus dignissimos modi reiciendis enim quo esse, tenetur nihil, nemo iste ipsum repellat recusandae.
 	p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, voluptatibus dignissimos modi reiciendis enim quo esse, tenetur nihil, nemo iste ipsum repellat recusandae.
 
-	h3.DocTitle Preformated
+	h3.DocTitle Code
+	p  Lorem ipsum dolor sit amet, <code>&lt;code&gt;consectetur adipisicing&lt;/code&gt;</code> elit voluptas facere inventore aut dignissimos.
+
+	h3.DocTitle Preformatted
+	pre= '<pre>\n\t<button class="Button">Default</button>\n</pre>'
 	pre
-		| // Pull
-		| .u-pull(@a, @b) when not (@a > @b) {
-		|	@pull: (100/@b)*@a;
-		|	position: relative;
-		|	left: ~"-@{pull}%";
-		|}
+		code= '<pre>\n\t<code>\n\t\t<button class="Button">Default</button>\n\t</code>\n</pre>'
 
 	h3.DocTitle Links
 	p

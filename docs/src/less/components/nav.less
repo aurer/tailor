@@ -10,7 +10,7 @@
 	a {
 		display: block;
 		text-decoration: none;
-		padding: 1vh 2rem;
+		padding: @space-sm @space;
 
 		&:hover,
 		&:focus,
@@ -19,8 +19,8 @@
 		}
 
 		&.is-active {
-			border-right: 4px solid #0F8FFE;
-			color: #0F8FFE;
+			border-right: 4px solid @color-secondary;
+			color: @color-secondary;
 		}
 	}
 
@@ -47,11 +47,11 @@
 	text-align: left;
 	outline: none;
 	position: absolute;
-	top: 2.5rem;
+	top: 1.5rem;
 	right: @space;
 
 	svg {
-		fill: #000;
+		fill: contrast(@color-primary);
 	}
 
 	@media @mq-md {
