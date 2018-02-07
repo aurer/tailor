@@ -14,8 +14,7 @@
 
 .Page-title {
 	padding: 1rem @space;
-	background-color: @color-primary;
-	color: @color-white;
+	color: @color-primary;
 	font-size: 1.5em;
 	font-weight: 300;
 	margin: 0;
@@ -27,13 +26,14 @@
 }
 
 .Page-nav {
-	background: #000;
-	font-family: 'Ubuntu', sans-serif;
-	background-color: #DFE6EC;
+	background-color: @color-white;
 	position: relative;
+	border-bottom: 1px solid @color-neutral-light;
 
 	@media @mq-md {
 		flex: 0 0 200px;
+		border-bottom: none;
+		border-right: 1px solid @color-neutral-light;
 	}
 
 	@media @mq-lg {

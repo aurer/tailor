@@ -1,5 +1,5 @@
 .Nav {
-	padding: 1rem 0;
+	padding: 0;
 	display: none;
 	padding-bottom: @space-md;
 
@@ -10,12 +10,12 @@
 	a {
 		display: block;
 		text-decoration: none;
-		padding: @space-sm @space;
+		padding: @space-xs @space;
 
 		&:hover,
 		&:focus,
 		&.is-active {
-			background-color: fade(#fff, 30%);
+			background-color: fade(@color-neutral, 15%);
 		}
 
 		&.is-active {
@@ -51,7 +51,7 @@
 	right: @space;
 
 	svg {
-		fill: contrast(@color-primary);
+		fill: @color-primary;
 	}
 
 	@media @mq-md {
