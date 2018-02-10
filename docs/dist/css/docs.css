@@ -1214,6 +1214,7 @@ code.example {
   display: block;
   text-decoration: none;
   padding: 0.5rem 1.5rem;
+  font-size: .9em;
 }
 .Nav a:hover,
 .Nav a:focus,
@@ -1221,8 +1222,8 @@ code.example {
   background-color: rgba(153, 170, 173, 0.15);
 }
 .Nav a.is-active {
-  border-right: 4px solid #01C4B3;
-  color: #01C4B3;
+  border-right: 4px solid #02A9CC;
+  color: #02A9CC;
 }
 .is-visible .Nav {
   display: block;
