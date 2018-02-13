@@ -1,6 +1,6 @@
 [submodule "src/less"]
 	path = src/less
-	url = git@github.com:aurer/tailor-less
+	url = https://github.com/aurer/tailor-less.git
 [submodule "src/sass"]
 	path = src/sass
 	url = https://github.com/aurer/tailor-sass.git
