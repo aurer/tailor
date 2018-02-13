@@ -1,6 +1,6 @@
 var server = require('browser-sync');
 var gulp = require('gulp');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var pug = require('gulp-pug');
 var del = require('del');
@@ -10,18 +10,19 @@ var fs = require('fs');
 
 var src = './src';
 var dist = './dist';
+var sass_options = {outputStyle: 'compressed'}
 
 // Compile less
-gulp.task('less', function() {
-	gulp.src(['docs/src/less/docs.less'])
+gulp.task('sass', function() {
+	gulp.src(['docs/src/sass/docs.scss'])
 		.pipe(plumber())
-		.pipe(less())
+		.pipe(sass(sass_options).on('error', sass.logError))
 		.pipe(gulp.dest('docs/dist/css'))
 		.pipe(server.stream());
 
-	gulp.src([`${src}/less/*.less`])
+	gulp.src([`${src}/sass/*.scss`])
 		.pipe(plumber())
-		.pipe(less())
+		.pipe(sass(sass_options).on('error', sass.logError))
 		.pipe(gulp.dest(`${dist}/css`))
 		.pipe(server.stream());
 });
@@ -59,10 +60,9 @@ gulp.task('views', function() {
 
 // Watch for changes
 gulp.task('watch', function() {
-	gulp.watch(`${src}/less/**/*.less`, ['less']);
-
+	gulp.watch(`${src}/sass/**/*.scss`, ['sass']);
+	gulp.watch(`docs/src/sass/**/*.scss`, ['sass']);
 	gulp.watch(`docs/src/js/docs.js`, ['js']);
-	gulp.watch(`docs/src/less/**/*.less`, ['less']);
 	gulp.watch(`docs/src/views/**/*.pug`, ['views']);
 });
 
@@ -82,7 +82,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', function() {
-	run('clean', 'less', 'js', 'views');
+	run('clean', 'sass', 'js', 'views');
 });
 
 gulp.task('dev', ['default', 'watch', 'serve']);
