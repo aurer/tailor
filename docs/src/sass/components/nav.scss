@@ -2,6 +2,7 @@
 	padding: 0;
 	display: none;
 	padding-bottom: $space-md;
+	font-weight: 300;
 
 	@include bp(md) {
 		display: block;
