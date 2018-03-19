@@ -8,31 +8,37 @@
 		height: 30px;
 		vertical-align: middle;
 		margin-right: $space-sm;
-		outline: 1px solid opacify(#000, .2);
+		box-shadow: 0 2px 6px rgba(#000, .2);
 	}
 }
 
-.Color--primary-lighter:before {	background-color: $color-primary-lighter; }
-.Color--primary-light:before {	background-color: $color-primary-light; }
-.Color--primary:before {	background-color: $color-primary; }
-.Color--primary-dark:before {	background-color: $color-primary-dark; }
-.Color--primary-darker:before {	background-color: $color-primary-darker; }
+$colors: (
+	primary-light: $color-primary-light,
+	primary-lighter: $color-primary-lighter,
+	primary: $color-primary,
+	primary-dark: $color-primary-dark,
+	primary-darker: $color-primary-darker,
+	secondary-lighter: $color-secondary-lighter,
+	secondary-light: $color-secondary-light,
+	secondary: $color-secondary,
+	secondary-dark: $color-secondary-dark,
+	secondary-darker: $color-secondary-darker,
+	white: $color-white,
+	neutral-lighter: $color-neutral-lighter,
+	neutral-light: $color-neutral-light,
+	neutral: $color-neutral,
+	neutral-dark: $color-neutral-dark,
+	neutral-darker: $color-neutral-darker,
+	black: $color-black,
+	message-info: $color-message-info,
+	message-success: $color-message-success,
+	message-warning: $color-message-warning,
+	message-error: $color-message-error
+);
 
-.Color--secondary-lighter:before {	background-color: $color-secondary-lighter; }
-.Color--secondary-light:before {	background-color: $color-secondary-light; }
-.Color--secondary:before {	background-color: $color-secondary; }
-.Color--secondary-dark:before {	background-color: $color-secondary-dark; }
-.Color--secondary-darker:before {	background-color: $color-secondary-darker; }
-
-.Color--white:before {	background-color: $color-white; }
-.Color--neutral-lighter:before {	background-color: $color-neutral-lighter; }
-.Color--neutral-light:before {	background-color: $color-neutral-light; }
-.Color--neutral:before {	background-color: $color-neutral; }
-.Color--neutral-dark:before {	background-color: $color-neutral-dark; }
-.Color--neutral-darker:before {	background-color: $color-neutral-darker; }
-.Color--black:before {	background-color: $color-black; }
-
-.Color--message-info:before {	background-color: $color-message-info; }
-.Color--message-success:before {	background-color: $color-message-success; }
-.Color--message-warning:before {	background-color: $color-message-warning; }
-.Color--message-error:before {	background-color: $color-message-error; }
+@each $name, $color in $colors {
+	.Color--#{$name}:before {
+		background-color: $color;
+		box-shadow: 0 2px 6px mix(rgba(#000, .3), $color, 60%);
+	}
+}
