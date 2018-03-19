@@ -16,7 +16,7 @@
 	padding: 1rem $space;
 	color: $color-primary;
 	font-size: 1.5em;
-	font-weight: 300;
+	font-weight: bold;
 	margin: 0;
 
 	a {
@@ -26,7 +26,8 @@
 }
 
 .Page-nav {
-	background-color: $color-white;
+	background-color: $color-neutral-darker;
+	color: $color-white;
 	position: relative;
 	border-bottom: 1px solid $color-neutral-light;
 
@@ -38,6 +39,10 @@
 
 	@include bp(lg) {
 		flex: 0 0 300px;
+	}
+
+	a {
+		color: inherit;
 	}
 }
 
@@ -89,25 +94,6 @@
 		&:after {
 			opacity: 1;
 		}
-	}
-}
-
-.Page-footer {
-	position: fixed;
-	bottom: 0;
-	height: $space-md;
-	left: 0;
-	padding: 0 $space;
-	line-height: $space-md;
-	background-color: #d8dfe5;
-	width: 100%;
-
-	@include bp(md) {
-		width: 200px;
-	}
-
-	@include bp(lg) {
-		width: 300px;
 	}
 }
 
