@@ -1,6 +1,3 @@
-[submodule "src/less"]
-	path = src/less
-	url = https://github.com/aurer/tailor-less.git
 [submodule "src/sass"]
 	path = src/sass
 	url = https://github.com/aurer/tailor-sass.git
