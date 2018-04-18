@@ -3,15 +3,27 @@ import Nav from '../layout/nav';
 import Buttons from './buttons';
 import Colors from './colors';
 import Forms from './forms';
-import Grids from './grids';
+import Grid from './grid';
 
 export default class App extends Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      elements: [
+        'Buttons',
+        'Forms',
+        'Colors',
+        'Grid'
+      ]
+    }
+  }
+
+  render(props, {elements}) {
     return (
       <div class="Page">
-        <Nav />
+        <Nav elements={elements} />
         <main className="Page-main">
-          <Grids />
+          <Grid />
           <Forms />
           <Buttons />
           <Colors />

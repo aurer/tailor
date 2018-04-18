@@ -1094,7 +1094,7 @@ exports.options = options;
 exports.default = preact;
 //# sourceMappingURL=preact.esm.js.map
 },{}],8:[function(require,module,exports) {
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1102,7 +1102,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _preact = require("preact");
+var _preact = require('preact');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1120,52 +1120,33 @@ var Nav = function (_Component) {
   }
 
   _createClass(Nav, [{
-    key: "render",
-    value: function render() {
+    key: 'render',
+    value: function render(_ref) {
+      var elements = _ref.elements;
+
       return (0, _preact.h)(
-        "nav",
-        { className: "Page-nav" },
-        (0, _preact.h)(
-          "a",
-          { href: "#Buttons" },
-          "Buttons"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Colors" },
-          "Colors"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Grid" },
-          "Grid"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Lists" },
-          "Lists"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Media" },
-          "Media"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Messages" },
-          "Messages"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Tables" },
-          "Tables"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Text" },
-          "Text"
-        )
+        'nav',
+        { className: 'Page-nav', onClick: this.navigate.bind(this) },
+        elements.map(function (element) {
+          return (0, _preact.h)(
+            'a',
+            { href: '#' + element },
+            element
+          );
+        })
       );
+    }
+  }, {
+    key: 'navigate',
+    value: function navigate(e) {
+      var node = e.target;
+      if (node.nodeName == 'A') {
+        var id = node.getAttribute('href');
+        var target = document.querySelector(id);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
     }
   }]);
 
@@ -1202,11 +1183,12 @@ var Elements = function (_Component) {
   _createClass(Elements, [{
     key: "render",
     value: function render(_ref) {
-      var children = _ref.children;
+      var id = _ref.id,
+          children = _ref.children;
 
       return (0, _preact.h)(
         "div",
-        { className: "Elements" },
+        { id: id, className: "Elements" },
         children
       );
     }
@@ -1282,7 +1264,7 @@ var Element = function (_Component) {
           source && (0, _preact.h)(
             'button',
             { 'class': 'Element-toggle', onClick: this.toggleCode.bind(this) },
-            this.state.showCode ? 'Hide' : 'Show',
+            this.state.showCode ? 'Hide' : 'View',
             ' source'
           )
         ),
@@ -1385,7 +1367,7 @@ var Buttons = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Buttons' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Buttons' },
@@ -1474,7 +1456,7 @@ var Colors = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Colors' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Primary colors', source: 'false' },
@@ -1645,7 +1627,7 @@ var Forms = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Forms' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Form' },
@@ -1827,7 +1809,7 @@ var Forms = function (_Component) {
 }(_preact.Component);
 
 exports.default = Forms;
-},{"preact":6,"../layout/elements":13,"../layout/element":14}],12:[function(require,module,exports) {
+},{"preact":6,"../layout/elements":13,"../layout/element":14}],28:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1854,21 +1836,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Grids = function (_Component) {
-  _inherits(Grids, _Component);
+var Grid = function (_Component) {
+  _inherits(Grid, _Component);
 
-  function Grids() {
-    _classCallCheck(this, Grids);
+  function Grid() {
+    _classCallCheck(this, Grid);
 
-    return _possibleConstructorReturn(this, (Grids.__proto__ || Object.getPrototypeOf(Grids)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).apply(this, arguments));
   }
 
-  _createClass(Grids, [{
+  _createClass(Grid, [{
     key: 'render',
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Grid' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Grid' },
@@ -1897,10 +1879,10 @@ var Grids = function (_Component) {
     }
   }]);
 
-  return Grids;
+  return Grid;
 }(_preact.Component);
 
-exports.default = Grids;
+exports.default = Grid;
 },{"preact":6,"../layout/elements":13,"../layout/element":14}],5:[function(require,module,exports) {
 'use strict';
 
@@ -1928,9 +1910,9 @@ var _forms = require('./forms');
 
 var _forms2 = _interopRequireDefault(_forms);
 
-var _grids = require('./grids');
+var _grid = require('./grid');
 
-var _grids2 = _interopRequireDefault(_grids);
+var _grid2 = _interopRequireDefault(_grid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1946,20 +1928,27 @@ var App = function (_Component) {
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    _this.state = {
+      elements: ['Buttons', 'Forms', 'Colors', 'Grid']
+    };
+    return _this;
   }
 
   _createClass(App, [{
     key: 'render',
-    value: function render() {
+    value: function render(props, _ref) {
+      var elements = _ref.elements;
+
       return (0, _preact.h)(
         'div',
         { 'class': 'Page' },
-        (0, _preact.h)(_nav2.default, null),
+        (0, _preact.h)(_nav2.default, { elements: elements }),
         (0, _preact.h)(
           'main',
           { className: 'Page-main' },
-          (0, _preact.h)(_grids2.default, null),
+          (0, _preact.h)(_grid2.default, null),
           (0, _preact.h)(_forms2.default, null),
           (0, _preact.h)(_buttons2.default, null),
           (0, _preact.h)(_colors2.default, null)
@@ -1972,7 +1961,7 @@ var App = function (_Component) {
 }(_preact.Component);
 
 exports.default = App;
-},{"preact":6,"../layout/nav":8,"./buttons":9,"./colors":10,"./forms":11,"./grids":12}],3:[function(require,module,exports) {
+},{"preact":6,"../layout/nav":8,"./buttons":9,"./colors":10,"./forms":11,"./grid":28}],3:[function(require,module,exports) {
 'use strict';
 
 var _preact = require('preact');

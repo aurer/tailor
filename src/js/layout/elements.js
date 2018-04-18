@@ -1,9 +1,9 @@
 import {h, Component} from 'preact';
 
 export default class Elements extends Component {
-  render({children}) {
+  render({id, children}) {
     return (
-      <div className="Elements">
+      <div id={id} className="Elements">
         {children}
       </div>
     )

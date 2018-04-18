@@ -5,7 +5,7 @@ import Element from '../layout/element';
 export default class Forms extends Component {
   render() {
     return (
-      <Elements>
+      <Elements id="Forms">
         <Element title="Form">
           <form class="Form">
             <fieldset>

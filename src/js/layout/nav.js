@@ -1,18 +1,22 @@
 import {h, Component} from 'preact';
 
 export default class Nav extends Component {
-  render() {
+  render({elements}) {
     return (
-      <nav className="Page-nav">
-        <a href="#Buttons">Buttons</a>
-        <a href="#Colors">Colors</a>
-        <a href="#Grid">Grid</a>
-        <a href="#Lists">Lists</a>
-        <a href="#Media">Media</a>
-        <a href="#Messages">Messages</a>
-        <a href="#Tables">Tables</a>
-        <a href="#Text">Text</a>
+      <nav className="Page-nav" onClick={this.navigate.bind(this)}>
+        {elements.map(element => <a href={'#'+element}>{element}</a>)}
       </nav>
     )
+  }
+
+  navigate(e) {
+    let node = e.target;
+    if (node.nodeName == 'A') {
+      let id = node.getAttribute('href');
+      let target = document.querySelector(id)
+      if (target) {
+        target.scrollIntoView();
+      }
+    }
   }
 }

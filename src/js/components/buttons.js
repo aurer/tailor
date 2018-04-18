@@ -5,7 +5,7 @@ import Element from '../layout/element';
 export default class Buttons extends Component {
   render() {
     return (
-      <Elements>
+      <Elements id="Buttons">
         <Element title="Buttons">
           <a class="Button">Default</a>
           <a class="Button Button--primary">Primary</a>

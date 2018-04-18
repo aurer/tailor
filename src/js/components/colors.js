@@ -5,7 +5,7 @@ import Element from '../layout/element';
 export default class Colors extends Component {
   render() {
     return (
-      <Elements>
+      <Elements id="Colors">
         <Element title="Primary colors" source="false">
           <div class="Color Color--primary-lighter">$color-primary-lighter</div>
           <div class="Color Color--primary-light">$color-primary-light</div>
