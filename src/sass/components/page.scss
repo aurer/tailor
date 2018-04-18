@@ -1,0 +1,23 @@
+.Page {
+	display: grid;
+	grid-template-columns: 15rem auto;
+}
+
+.Page-nav {
+	background-color: $color-neutral-light;
+
+	a {
+		display: block;
+		padding: $space-xs $space;
+		color: $color-black;
+		text-decoration: none;
+		font-weight: bold;
+	}
+}
+
+.Page-main {
+	height: 100vh;
+	overflow: auto;
+	padding: $space;
+	border-left: 1px solid $color-neutral-light;
+}

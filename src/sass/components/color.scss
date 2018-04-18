@@ -1,0 +1,44 @@
+.Color {
+	margin-bottom: $space-xs;
+
+	&:before {
+		content: '';
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+		margin-right: $space-sm;
+		box-shadow: 0 2px 6px rgba(#000, .2);
+	}
+}
+
+$colors: (
+	primary-light: $color-primary-light,
+	primary-lighter: $color-primary-lighter,
+	primary: $color-primary,
+	primary-dark: $color-primary-dark,
+	primary-darker: $color-primary-darker,
+	secondary-lighter: $color-secondary-lighter,
+	secondary-light: $color-secondary-light,
+	secondary: $color-secondary,
+	secondary-dark: $color-secondary-dark,
+	secondary-darker: $color-secondary-darker,
+	white: $color-white,
+	neutral-lighter: $color-neutral-lighter,
+	neutral-light: $color-neutral-light,
+	neutral: $color-neutral,
+	neutral-dark: $color-neutral-dark,
+	neutral-darker: $color-neutral-darker,
+	black: $color-black,
+	message-info: $color-message-info,
+	message-success: $color-message-success,
+	message-warning: $color-message-warning,
+	message-error: $color-message-error
+);
+
+@each $name, $color in $colors {
+	.Color--#{$name}:before {
+		background-color: $color;
+		box-shadow: 0 2px 6px mix(rgba(#000, .3), $color, 60%);
+	}
+}

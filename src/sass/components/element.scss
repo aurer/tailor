@@ -1,0 +1,32 @@
+.Element {
+	position: relative;
+	margin-bottom: $space;
+
+	&-title {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		margin-bottom: $space-sm;
+		border-bottom: 2px solid;
+
+		h3 {
+			margin: 0;
+		}
+	}
+
+	&-toggle {
+		background-color: transparent;
+		border: none;
+		outline: none;
+		font-size: .9em;
+		cursor: pointer;
+		color: $color-primary;
+	}
+
+	&-source {
+		background-color: $color-neutral-light;
+		border: 1px solid $color-neutral;
+		color: $color-black;
+		padding: $space-xs;
+		font-size: .75em;
+	}
+}

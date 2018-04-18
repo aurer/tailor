@@ -19,8 +19,10 @@ export default class Element extends Component {
 
     return (
       <div className="Element">
-        <h3 class="Element-title">{title}</h3>
-        {source && <button onClick={this.toggleCode.bind(this)}>{ this.state.showCode ? 'Hide' : 'Show'} source</button>}
+        <div class="Element-title">
+          <h3>{title}</h3>
+          {source && <button class="Element-toggle" onClick={this.toggleCode.bind(this)}>{ this.state.showCode ? 'Hide' : 'Show'} source</button>}
+        </div>
         {this.state.showCode || (
           <div class="Element-content">
             {children}
