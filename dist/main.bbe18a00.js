@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({6:[function(require,module,exports) {
+})({7:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1093,7 +1093,7 @@ exports.rerender = rerender;
 exports.options = options;
 exports.default = preact;
 //# sourceMappingURL=preact.esm.js.map
-},{}],8:[function(require,module,exports) {
+},{}],9:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1173,7 +1173,7 @@ var Nav = function (_Component) {
 }(_preact.Component);
 
 exports.default = Nav;
-},{"preact":6}],12:[function(require,module,exports) {
+},{"preact":7}],15:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1216,7 +1216,7 @@ var Elements = function (_Component) {
 }(_preact.Component);
 
 exports.default = Elements;
-},{"preact":6}],13:[function(require,module,exports) {
+},{"preact":7}],16:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1340,7 +1340,7 @@ function prettyRender(VNode, depth) {
   }).join(tabs_before).trim() + "\n" + tabs_after;
   return node.outerHTML.replace("></", '>' + child + '</') + "\n";
 }
-},{"preact":6}],9:[function(require,module,exports) {
+},{"preact":7}],10:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1429,7 +1429,7 @@ var Buttons = function (_Component) {
 }(_preact.Component);
 
 exports.default = Buttons;
-},{"preact":6,"../layout/elements":12,"../layout/element":13}],10:[function(require,module,exports) {
+},{"preact":7,"../layout/elements":15,"../layout/element":16}],11:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1600,7 +1600,7 @@ var Colors = function (_Component) {
 }(_preact.Component);
 
 exports.default = Colors;
-},{"preact":6,"../layout/elements":12,"../layout/element":13}],11:[function(require,module,exports) {
+},{"preact":7,"../layout/elements":15,"../layout/element":16}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1823,7 +1823,81 @@ var Forms = function (_Component) {
 }(_preact.Component);
 
 exports.default = Forms;
-},{"preact":6,"../layout/elements":12,"../layout/element":13}],5:[function(require,module,exports) {
+},{"preact":7,"../layout/elements":15,"../layout/element":16}],12:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _preact = require('preact');
+
+var _elements = require('../layout/elements');
+
+var _elements2 = _interopRequireDefault(_elements);
+
+var _element = require('../layout/element');
+
+var _element2 = _interopRequireDefault(_element);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Grids = function (_Component) {
+  _inherits(Grids, _Component);
+
+  function Grids() {
+    _classCallCheck(this, Grids);
+
+    return _possibleConstructorReturn(this, (Grids.__proto__ || Object.getPrototypeOf(Grids)).apply(this, arguments));
+  }
+
+  _createClass(Grids, [{
+    key: 'render',
+    value: function render() {
+      return (0, _preact.h)(
+        _elements2.default,
+        null,
+        (0, _preact.h)(
+          _element2.default,
+          { title: 'Grid' },
+          (0, _preact.h)(
+            'div',
+            { className: 'Grid' },
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' })
+          )
+        ),
+        (0, _preact.h)(
+          _element2.default,
+          { title: 'Grid spaced' },
+          (0, _preact.h)(
+            'div',
+            { className: 'Grid Grid--spaced' },
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
+            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return Grids;
+}(_preact.Component);
+
+exports.default = Grids;
+},{"preact":7,"../layout/elements":15,"../layout/element":16}],5:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1849,6 +1923,10 @@ var _colors2 = _interopRequireDefault(_colors);
 var _forms = require('./forms');
 
 var _forms2 = _interopRequireDefault(_forms);
+
+var _grids = require('./grids');
+
+var _grids2 = _interopRequireDefault(_grids);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1877,6 +1955,7 @@ var App = function (_Component) {
         (0, _preact.h)(
           'main',
           { className: 'Page-main' },
+          (0, _preact.h)(_grids2.default, null),
           (0, _preact.h)(_forms2.default, null),
           (0, _preact.h)(_buttons2.default, null),
           (0, _preact.h)(_colors2.default, null)
@@ -1889,7 +1968,7 @@ var App = function (_Component) {
 }(_preact.Component);
 
 exports.default = App;
-},{"preact":6,"../layout/nav":8,"./buttons":9,"./colors":10,"./forms":11}],3:[function(require,module,exports) {
+},{"preact":7,"../layout/nav":9,"./buttons":10,"./colors":11,"./forms":13,"./grids":12}],3:[function(require,module,exports) {
 'use strict';
 
 var _preact = require('preact');
@@ -1903,7 +1982,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appContainer = document.querySelector('#app');
 
 (0, _preact.render)((0, _preact.h)(_app2.default, null), appContainer, appContainer.lastChild);
-},{"preact":6,"./components/app":5}],15:[function(require,module,exports) {
+},{"preact":7,"./components/app":5}],17:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1933,7 +2012,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54663' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '61125' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2072,5 +2151,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[15,3])
+},{}]},{},[17,3])
 //# sourceMappingURL=/main.bbe18a00.map
