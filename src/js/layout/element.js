@@ -3,6 +3,9 @@ import {h, Component, render} from 'preact';
 export default class Element extends Component {
   constructor({title, source, children}) {
     super();
+    this.state = {
+      showCode: false
+    }
   }
 
   render({title, source, children}) {
@@ -17,17 +20,24 @@ export default class Element extends Component {
     return (
       <div className="Element">
         <h3 class="Element-title">{title}</h3>
-        <div class="Element-content">
-          {children}
-        </div>
-        {source && (
-            <pre class="Element-source">
-              {sourceCode}
-            </pre>
-          )
-        }
+        {source && <button onClick={this.toggleCode.bind(this)}>{ this.state.showCode ? 'Hide' : 'Show'} source</button>}
+        {this.state.showCode || (
+          <div class="Element-content">
+            {children}
+          </div>
+        )}
+        {source && this.state.showCode && (
+          <pre class="Element-source">
+            {sourceCode}
+          </pre>
+        )}
       </div>
     )
+  }
+
+  toggleCode() {
+    let showCode = !this.state.showCode;
+    this.setState({showCode});
   }
 }
 

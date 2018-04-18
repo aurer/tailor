@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({23:[function(require,module,exports) {
+})({6:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1093,7 +1093,7 @@ exports.rerender = rerender;
 exports.options = options;
 exports.default = preact;
 //# sourceMappingURL=preact.esm.js.map
-},{}],31:[function(require,module,exports) {
+},{}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1173,7 +1173,7 @@ var Nav = function (_Component) {
 }(_preact.Component);
 
 exports.default = Nav;
-},{"preact":23}],42:[function(require,module,exports) {
+},{"preact":6}],12:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1216,7 +1216,7 @@ var Elements = function (_Component) {
 }(_preact.Component);
 
 exports.default = Elements;
-},{"preact":23}],33:[function(require,module,exports) {
+},{"preact":6}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1243,7 +1243,12 @@ var Element = function (_Component) {
 
     _classCallCheck(this, Element);
 
-    return _possibleConstructorReturn(this, (Element.__proto__ || Object.getPrototypeOf(Element)).call(this));
+    var _this = _possibleConstructorReturn(this, (Element.__proto__ || Object.getPrototypeOf(Element)).call(this));
+
+    _this.state = {
+      showCode: false
+    };
+    return _this;
   }
 
   _createClass(Element, [{
@@ -1271,17 +1276,29 @@ var Element = function (_Component) {
           { 'class': 'Element-title' },
           title
         ),
-        (0, _preact.h)(
+        source && (0, _preact.h)(
+          'button',
+          { onClick: this.toggleCode.bind(this) },
+          this.state.showCode ? 'Hide' : 'Show',
+          ' source'
+        ),
+        this.state.showCode || (0, _preact.h)(
           'div',
           { 'class': 'Element-content' },
           children
         ),
-        source && (0, _preact.h)(
+        source && this.state.showCode && (0, _preact.h)(
           'pre',
           { 'class': 'Element-source' },
           sourceCode
         )
       );
+    }
+  }, {
+    key: 'toggleCode',
+    value: function toggleCode() {
+      var showCode = !this.state.showCode;
+      this.setState({ showCode: showCode });
     }
   }]);
 
@@ -1323,7 +1340,7 @@ function prettyRender(VNode, depth) {
   }).join(tabs_before).trim() + "\n" + tabs_after;
   return node.outerHTML.replace("></", '>' + child + '</') + "\n";
 }
-},{"preact":23}],32:[function(require,module,exports) {
+},{"preact":6}],9:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1412,7 +1429,7 @@ var Buttons = function (_Component) {
 }(_preact.Component);
 
 exports.default = Buttons;
-},{"preact":23,"../layout/elements":42,"../layout/element":33}],39:[function(require,module,exports) {
+},{"preact":6,"../layout/elements":12,"../layout/element":13}],10:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1583,7 +1600,7 @@ var Colors = function (_Component) {
 }(_preact.Component);
 
 exports.default = Colors;
-},{"preact":23,"../layout/elements":42,"../layout/element":33}],41:[function(require,module,exports) {
+},{"preact":6,"../layout/elements":12,"../layout/element":13}],11:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1806,7 +1823,7 @@ var Forms = function (_Component) {
 }(_preact.Component);
 
 exports.default = Forms;
-},{"preact":23,"../layout/elements":42,"../layout/element":33}],24:[function(require,module,exports) {
+},{"preact":6,"../layout/elements":12,"../layout/element":13}],5:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1872,7 +1889,7 @@ var App = function (_Component) {
 }(_preact.Component);
 
 exports.default = App;
-},{"preact":23,"../layout/nav":31,"./buttons":32,"./colors":39,"./forms":41}],19:[function(require,module,exports) {
+},{"preact":6,"../layout/nav":8,"./buttons":9,"./colors":10,"./forms":11}],3:[function(require,module,exports) {
 'use strict';
 
 var _preact = require('preact');
@@ -1886,7 +1903,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appContainer = document.querySelector('#app');
 
 (0, _preact.render)((0, _preact.h)(_app2.default, null), appContainer, appContainer.lastChild);
-},{"preact":23,"./components/app":24}],67:[function(require,module,exports) {
+},{"preact":6,"./components/app":5}],15:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1916,7 +1933,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63770' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54663' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2055,5 +2072,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[67,19])
+},{}]},{},[15,3])
 //# sourceMappingURL=/main.bbe18a00.map
