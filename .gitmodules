@@ -1,0 +1,3 @@
+[submodule "src/sass/tailor"]
+	path = src/sass/tailor
+	url = https://github.com/aurer/tailor-sass.git
