@@ -1094,7 +1094,7 @@ exports.options = options;
 exports.default = preact;
 //# sourceMappingURL=preact.esm.js.map
 },{}],8:[function(require,module,exports) {
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1102,7 +1102,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _preact = require('preact');
+var _preact = require("preact");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1120,24 +1120,37 @@ var Nav = function (_Component) {
   }
 
   _createClass(Nav, [{
-    key: 'render',
+    key: "render",
     value: function render(_ref) {
       var elements = _ref.elements;
 
       return (0, _preact.h)(
-        'nav',
-        { className: 'Page-nav', onClick: this.navigate.bind(this) },
-        elements.map(function (element) {
-          return (0, _preact.h)(
-            'a',
-            { href: '#' + element },
-            element
-          );
-        })
+        "div",
+        { className: "Page-nav", onClick: this.navigate.bind(this) },
+        (0, _preact.h)(
+          "h1",
+          null,
+          (0, _preact.h)(
+            "a",
+            { href: "/" },
+            "Tailor"
+          )
+        ),
+        (0, _preact.h)(
+          "nav",
+          null,
+          elements.map(function (element) {
+            return (0, _preact.h)(
+              "a",
+              { href: '#' + element },
+              element
+            );
+          })
+        )
       );
     }
   }, {
-    key: 'navigate',
+    key: "navigate",
     value: function navigate(e) {
       var node = e.target;
       if (node.nodeName == 'A') {
@@ -1147,6 +1160,7 @@ var Nav = function (_Component) {
           target.scrollIntoView();
         }
       }
+      e.preventDefault();
     }
   }]);
 
@@ -1975,7 +1989,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appContainer = document.querySelector('#app');
 
 (0, _preact.render)((0, _preact.h)(_app2.default, null), appContainer, appContainer.lastChild);
-},{"preact":6,"./components/app":5}],27:[function(require,module,exports) {
+},{"preact":6,"./components/app":5}],29:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2144,5 +2158,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[27,3])
+},{}]},{},[29,3])
 //# sourceMappingURL=/main.f2c75fd0.map

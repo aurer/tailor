@@ -3,9 +3,12 @@ import {h, Component} from 'preact';
 export default class Nav extends Component {
   render({elements}) {
     return (
-      <nav className="Page-nav" onClick={this.navigate.bind(this)}>
-        {elements.map(element => <a href={'#'+element}>{element}</a>)}
-      </nav>
+      <div className="Page-nav" onClick={this.navigate.bind(this)}>
+        <h1><a href="/">Tailor</a></h1>
+        <nav>
+          {elements.map(element => <a href={'#'+element}>{element}</a>)}
+        </nav>
+      </div>
     )
   }
 
@@ -18,5 +21,6 @@ export default class Nav extends Component {
         target.scrollIntoView();
       }
     }
+    e.preventDefault();
   }
 }
