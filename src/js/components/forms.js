@@ -7,7 +7,7 @@ export default class Forms extends Component {
     return (
       <Elements id="Forms">
         <Element title="Form">
-          <form class="Form">
+          <form class="Form" onSubmit={this.handleSubmit}>
             <fieldset>
               <legend>Form legend</legend>
               <div class="Form-field">
@@ -28,7 +28,7 @@ export default class Forms extends Component {
         </Element>
 
         <Element title="Inline form">
-          <form class="Form Form--inline">
+          <form class="Form Form--inline" onSubmit={this.handleSubmit}>
             <div class="Form-field">
               <label>Username</label>
               <div class="Form-inputs">
@@ -88,5 +88,9 @@ export default class Forms extends Component {
         </Element>
       </Elements>
     )
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
   }
 }

@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({7:[function(require,module,exports) {
+})({5:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1093,8 +1093,473 @@ exports.rerender = rerender;
 exports.options = options;
 exports.default = preact;
 //# sourceMappingURL=preact.esm.js.map
-},{}],9:[function(require,module,exports) {
-"use strict";
+},{}],12:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Link = exports.Route = exports.Router = exports.route = exports.getCurrentUrl = exports.subscribers = undefined;
+
+var _preact = require('preact');
+
+var EMPTY$1 = {};
+
+function assign(obj, props) {
+	// eslint-disable-next-line guard-for-in
+	for (var i in props) {
+		obj[i] = props[i];
+	}
+	return obj;
+}
+
+function exec(url, route, opts) {
+	var reg = /(?:\?([^#]*))?(#.*)?$/,
+	    c = url.match(reg),
+	    matches = {},
+	    ret;
+	if (c && c[1]) {
+		var p = c[1].split('&');
+		for (var i = 0; i < p.length; i++) {
+			var r = p[i].split('=');
+			matches[decodeURIComponent(r[0])] = decodeURIComponent(r.slice(1).join('='));
+		}
+	}
+	url = segmentize(url.replace(reg, ''));
+	route = segmentize(route || '');
+	var max = Math.max(url.length, route.length);
+	for (var i$1 = 0; i$1 < max; i$1++) {
+		if (route[i$1] && route[i$1].charAt(0) === ':') {
+			var param = route[i$1].replace(/(^\:|[+*?]+$)/g, ''),
+			    flags = (route[i$1].match(/[+*?]+$/) || EMPTY$1)[0] || '',
+			    plus = ~flags.indexOf('+'),
+			    star = ~flags.indexOf('*'),
+			    val = url[i$1] || '';
+			if (!val && !star && (flags.indexOf('?') < 0 || plus)) {
+				ret = false;
+				break;
+			}
+			matches[param] = decodeURIComponent(val);
+			if (plus || star) {
+				matches[param] = url.slice(i$1).map(decodeURIComponent).join('/');
+				break;
+			}
+		} else if (route[i$1] !== url[i$1]) {
+			ret = false;
+			break;
+		}
+	}
+	if (opts.default !== true && ret === false) {
+		return false;
+	}
+	return matches;
+}
+
+function pathRankSort(a, b) {
+	return a.rank < b.rank ? 1 : a.rank > b.rank ? -1 : a.index - b.index;
+}
+
+// filter out VNodes without attributes (which are unrankeable), and add `index`/`rank` properties to be used in sorting.
+function prepareVNodeForRanking(vnode, index) {
+	vnode.index = index;
+	vnode.rank = rankChild(vnode);
+	return vnode.attributes;
+}
+
+function segmentize(url) {
+	return url.replace(/(^\/+|\/+$)/g, '').split('/');
+}
+
+function rankSegment(segment) {
+	return segment.charAt(0) == ':' ? 1 + '*+?'.indexOf(segment.charAt(segment.length - 1)) || 4 : 5;
+}
+
+function rank(path) {
+	return segmentize(path).map(rankSegment).join('');
+}
+
+function rankChild(vnode) {
+	return vnode.attributes.default ? 0 : rank(vnode.attributes.path);
+}
+
+var customHistory = null;
+
+var ROUTERS = [];
+
+var subscribers = [];
+
+var EMPTY = {};
+
+function isPreactElement(node) {
+	return node.__preactattr_ != null || typeof Symbol !== 'undefined' && node[Symbol.for('preactattr')] != null;
+}
+
+function setUrl(url, type) {
+	if (type === void 0) type = 'push';
+
+	if (customHistory && customHistory[type]) {
+		customHistory[type](url);
+	} else if (typeof history !== 'undefined' && history[type + 'State']) {
+		history[type + 'State'](null, null, url);
+	}
+}
+
+function getCurrentUrl() {
+	var url;
+	if (customHistory && customHistory.location) {
+		url = customHistory.location;
+	} else if (customHistory && customHistory.getCurrentLocation) {
+		url = customHistory.getCurrentLocation();
+	} else {
+		url = typeof location !== 'undefined' ? location : EMPTY;
+	}
+	return "" + (url.pathname || '') + (url.search || '');
+}
+
+function route(url, replace) {
+	if (replace === void 0) replace = false;
+
+	if (typeof url !== 'string' && url.url) {
+		replace = url.replace;
+		url = url.url;
+	}
+
+	// only push URL into history if we can handle it
+	if (canRoute(url)) {
+		setUrl(url, replace ? 'replace' : 'push');
+	}
+
+	return routeTo(url);
+}
+
+/** Check if the given URL can be handled by any router instances. */
+function canRoute(url) {
+	for (var i = ROUTERS.length; i--;) {
+		if (ROUTERS[i].canRoute(url)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/** Tell all router instances to handle the given URL.  */
+function routeTo(url) {
+	var didRoute = false;
+	for (var i = 0; i < ROUTERS.length; i++) {
+		if (ROUTERS[i].routeTo(url) === true) {
+			didRoute = true;
+		}
+	}
+	for (var i$1 = subscribers.length; i$1--;) {
+		subscribers[i$1](url);
+	}
+	return didRoute;
+}
+
+function routeFromLink(node) {
+	// only valid elements
+	if (!node || !node.getAttribute) {
+		return;
+	}
+
+	var href = node.getAttribute('href'),
+	    target = node.getAttribute('target');
+
+	// ignore links with targets and non-path URLs
+	if (!href || !href.match(/^\//g) || target && !target.match(/^_?self$/i)) {
+		return;
+	}
+
+	// attempt to route, if no match simply cede control to browser
+	return route(href);
+}
+
+function handleLinkClick(e) {
+	if (e.button == 0) {
+		routeFromLink(e.currentTarget || e.target || this);
+		return prevent(e);
+	}
+}
+
+function prevent(e) {
+	if (e) {
+		if (e.stopImmediatePropagation) {
+			e.stopImmediatePropagation();
+		}
+		if (e.stopPropagation) {
+			e.stopPropagation();
+		}
+		e.preventDefault();
+	}
+	return false;
+}
+
+function delegateLinkHandler(e) {
+	// ignore events the browser takes care of already:
+	if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey || e.button !== 0) {
+		return;
+	}
+
+	var t = e.target;
+	do {
+		if (String(t.nodeName).toUpperCase() === 'A' && t.getAttribute('href') && isPreactElement(t)) {
+			if (t.hasAttribute('native')) {
+				return;
+			}
+			// if link is handled by the router, prevent browser defaults
+			if (routeFromLink(t)) {
+				return prevent(e);
+			}
+		}
+	} while (t = t.parentNode);
+}
+
+var eventListenersInitialized = false;
+
+function initEventListeners() {
+	if (eventListenersInitialized) {
+		return;
+	}
+
+	if (typeof addEventListener === 'function') {
+		if (!customHistory) {
+			addEventListener('popstate', function () {
+				routeTo(getCurrentUrl());
+			});
+		}
+		addEventListener('click', delegateLinkHandler);
+	}
+	eventListenersInitialized = true;
+}
+
+var Router = function (Component$$1) {
+	function Router(props) {
+		Component$$1.call(this, props);
+		if (props.history) {
+			customHistory = props.history;
+		}
+
+		this.state = {
+			url: props.url || getCurrentUrl()
+		};
+
+		initEventListeners();
+	}
+
+	if (Component$$1) Router.__proto__ = Component$$1;
+	Router.prototype = Object.create(Component$$1 && Component$$1.prototype);
+	Router.prototype.constructor = Router;
+
+	Router.prototype.shouldComponentUpdate = function shouldComponentUpdate(props) {
+		if (props.static !== true) {
+			return true;
+		}
+		return props.url !== this.props.url || props.onChange !== this.props.onChange;
+	};
+
+	/** Check if the given URL can be matched against any children */
+	Router.prototype.canRoute = function canRoute(url) {
+		return this.getMatchingChildren(this.props.children, url, false).length > 0;
+	};
+
+	/** Re-render children with a new URL to match against. */
+	Router.prototype.routeTo = function routeTo(url) {
+		this._didRoute = false;
+		this.setState({ url: url });
+
+		// if we're in the middle of an update, don't synchronously re-route.
+		if (this.updating) {
+			return this.canRoute(url);
+		}
+
+		this.forceUpdate();
+		return this._didRoute;
+	};
+
+	Router.prototype.componentWillMount = function componentWillMount() {
+		ROUTERS.push(this);
+		this.updating = true;
+	};
+
+	Router.prototype.componentDidMount = function componentDidMount() {
+		var this$1 = this;
+
+		if (customHistory) {
+			this.unlisten = customHistory.listen(function (location) {
+				this$1.routeTo("" + (location.pathname || '') + (location.search || ''));
+			});
+		}
+		this.updating = false;
+	};
+
+	Router.prototype.componentWillUnmount = function componentWillUnmount() {
+		if (typeof this.unlisten === 'function') {
+			this.unlisten();
+		}
+		ROUTERS.splice(ROUTERS.indexOf(this), 1);
+	};
+
+	Router.prototype.componentWillUpdate = function componentWillUpdate() {
+		this.updating = true;
+	};
+
+	Router.prototype.componentDidUpdate = function componentDidUpdate() {
+		this.updating = false;
+	};
+
+	Router.prototype.getMatchingChildren = function getMatchingChildren(children, url, invoke) {
+		return children.filter(prepareVNodeForRanking).sort(pathRankSort).map(function (vnode) {
+			var matches = exec(url, vnode.attributes.path, vnode.attributes);
+			if (matches) {
+				if (invoke !== false) {
+					var newProps = { url: url, matches: matches };
+					assign(newProps, matches);
+					delete newProps.ref;
+					delete newProps.key;
+					return (0, _preact.cloneElement)(vnode, newProps);
+				}
+				return vnode;
+			}
+		}).filter(Boolean);
+	};
+
+	Router.prototype.render = function render(ref, ref$1) {
+		var children = ref.children;
+		var onChange = ref.onChange;
+		var url = ref$1.url;
+
+		var active = this.getMatchingChildren(children, url, true);
+
+		var current = active[0] || null;
+		this._didRoute = !!current;
+
+		var previous = this.previousUrl;
+		if (url !== previous) {
+			this.previousUrl = url;
+			if (typeof onChange === 'function') {
+				onChange({
+					router: this,
+					url: url,
+					previous: previous,
+					active: active,
+					current: current
+				});
+			}
+		}
+
+		return current;
+	};
+
+	return Router;
+}(_preact.Component);
+
+var Link = function (props) {
+	return (0, _preact.h)('a', assign({ onClick: handleLinkClick }, props));
+};
+
+var Route = function (props) {
+	return (0, _preact.h)(props.component, props);
+};
+
+Router.subscribers = subscribers;
+Router.getCurrentUrl = getCurrentUrl;
+Router.route = route;
+Router.Router = Router;
+Router.Route = Route;
+Router.Link = Link;
+
+exports.subscribers = subscribers;
+exports.getCurrentUrl = getCurrentUrl;
+exports.route = route;
+exports.Router = Router;
+exports.Route = Route;
+exports.Link = Link;
+exports.default = Router;
+//# sourceMappingURL=preact-router.es.js.map
+},{"preact":5}],15:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Link = exports.Match = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _preact = require('preact');
+
+var _preactRouter = require('preact-router');
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Match = exports.Match = function (_Component) {
+	_inherits(Match, _Component);
+
+	function Match() {
+		var _temp, _this, _ret;
+
+		_classCallCheck(this, Match);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.update = function (url) {
+			_this.nextUrl = url;
+			_this.setState({});
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
+
+	Match.prototype.componentDidMount = function componentDidMount() {
+		_preactRouter.subscribers.push(this.update);
+	};
+
+	Match.prototype.componentWillUnmount = function componentWillUnmount() {
+		_preactRouter.subscribers.splice(_preactRouter.subscribers.indexOf(this.update) >>> 0, 1);
+	};
+
+	Match.prototype.render = function render(props) {
+		var url = this.nextUrl || (0, _preactRouter.getCurrentUrl)(),
+		    path = url.replace(/\?.+$/, '');
+		this.nextUrl = null;
+		return props.children[0] && props.children[0]({
+			url: url,
+			path: path,
+			matches: path === props.path
+		});
+	};
+
+	return Match;
+}(_preact.Component);
+
+var Link = function Link(_ref) {
+	var activeClassName = _ref.activeClassName,
+	    path = _ref.path,
+	    props = _objectWithoutProperties(_ref, ['activeClassName', 'path']);
+
+	return (0, _preact.h)(
+		Match,
+		{ path: path || props.href },
+		function (_ref2) {
+			var matches = _ref2.matches;
+			return (0, _preact.h)(_preactRouter.Link, _extends({}, props, { 'class': [props.class || props.className, matches && activeClassName].filter(Boolean).join(' ') }));
+		}
+	);
+};
+
+exports.Link = Link;
+exports.default = Match;
+
+Match.Link = Link;
+
+},{"preact":5,"preact-router":12}],7:[function(require,module,exports) {
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1102,7 +1567,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _preact = require("preact");
+var _preact = require('preact');
+
+var _match = require('preact-router/match');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1120,50 +1587,32 @@ var Nav = function (_Component) {
   }
 
   _createClass(Nav, [{
-    key: "render",
-    value: function render() {
+    key: 'render',
+    value: function render(_ref) {
+      var elements = _ref.elements;
+
       return (0, _preact.h)(
-        "nav",
-        { className: "Page-nav" },
+        'div',
+        { className: 'Page-nav' },
         (0, _preact.h)(
-          "a",
-          { href: "#Buttons" },
-          "Buttons"
+          'h1',
+          null,
+          (0, _preact.h)(
+            'a',
+            { href: '/' },
+            'Tailor'
+          )
         ),
         (0, _preact.h)(
-          "a",
-          { href: "#Colors" },
-          "Colors"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Grid" },
-          "Grid"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Lists" },
-          "Lists"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Media" },
-          "Media"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Messages" },
-          "Messages"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Tables" },
-          "Tables"
-        ),
-        (0, _preact.h)(
-          "a",
-          { href: "#Text" },
-          "Text"
+          'nav',
+          null,
+          elements.map(function (element) {
+            return (0, _preact.h)(
+              _match.Link,
+              { activeClassName: 'is-active', href: '/' + element.toLowerCase() },
+              element
+            );
+          })
         )
       );
     }
@@ -1173,7 +1622,7 @@ var Nav = function (_Component) {
 }(_preact.Component);
 
 exports.default = Nav;
-},{"preact":7}],15:[function(require,module,exports) {
+},{"preact":5,"preact-router/match":15}],13:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1202,11 +1651,12 @@ var Elements = function (_Component) {
   _createClass(Elements, [{
     key: "render",
     value: function render(_ref) {
-      var children = _ref.children;
+      var id = _ref.id,
+          children = _ref.children;
 
       return (0, _preact.h)(
         "div",
-        { className: "Elements" },
+        { id: id, className: "Elements" },
         children
       );
     }
@@ -1216,7 +1666,7 @@ var Elements = function (_Component) {
 }(_preact.Component);
 
 exports.default = Elements;
-},{"preact":7}],16:[function(require,module,exports) {
+},{"preact":5}],14:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1272,15 +1722,19 @@ var Element = function (_Component) {
         'div',
         { className: 'Element' },
         (0, _preact.h)(
-          'h3',
+          'div',
           { 'class': 'Element-title' },
-          title
-        ),
-        source && (0, _preact.h)(
-          'button',
-          { onClick: this.toggleCode.bind(this) },
-          this.state.showCode ? 'Hide' : 'Show',
-          ' source'
+          (0, _preact.h)(
+            'h3',
+            null,
+            title
+          ),
+          source && (0, _preact.h)(
+            'button',
+            { 'class': 'Element-toggle', onClick: this.toggleCode.bind(this) },
+            this.state.showCode ? 'Hide' : 'View',
+            ' source'
+          )
         ),
         this.state.showCode || (0, _preact.h)(
           'div',
@@ -1340,7 +1794,7 @@ function prettyRender(VNode, depth) {
   }).join(tabs_before).trim() + "\n" + tabs_after;
   return node.outerHTML.replace("></", '>' + child + '</') + "\n";
 }
-},{"preact":7}],10:[function(require,module,exports) {
+},{"preact":5}],6:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1381,7 +1835,7 @@ var Buttons = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Buttons' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Buttons' },
@@ -1429,7 +1883,7 @@ var Buttons = function (_Component) {
 }(_preact.Component);
 
 exports.default = Buttons;
-},{"preact":7,"../layout/elements":15,"../layout/element":16}],11:[function(require,module,exports) {
+},{"preact":5,"../layout/elements":13,"../layout/element":14}],8:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1470,7 +1924,7 @@ var Colors = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Colors' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Primary colors', source: 'false' },
@@ -1600,7 +2054,7 @@ var Colors = function (_Component) {
 }(_preact.Component);
 
 exports.default = Colors;
-},{"preact":7,"../layout/elements":15,"../layout/element":16}],13:[function(require,module,exports) {
+},{"preact":5,"../layout/elements":13,"../layout/element":14}],9:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1641,13 +2095,13 @@ var Forms = function (_Component) {
     value: function render() {
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Forms' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Form' },
           (0, _preact.h)(
             'form',
-            { 'class': 'Form' },
+            { 'class': 'Form', onSubmit: this.handleSubmit },
             (0, _preact.h)(
               'fieldset',
               null,
@@ -1693,7 +2147,7 @@ var Forms = function (_Component) {
           { title: 'Inline form' },
           (0, _preact.h)(
             'form',
-            { 'class': 'Form Form--inline' },
+            { 'class': 'Form Form--inline', onSubmit: this.handleSubmit },
             (0, _preact.h)(
               'div',
               { 'class': 'Form-field' },
@@ -1817,13 +2271,18 @@ var Forms = function (_Component) {
         )
       );
     }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+    }
   }]);
 
   return Forms;
 }(_preact.Component);
 
 exports.default = Forms;
-},{"preact":7,"../layout/elements":15,"../layout/element":16}],12:[function(require,module,exports) {
+},{"preact":5,"../layout/elements":13,"../layout/element":14}],10:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1850,31 +2309,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Grids = function (_Component) {
-  _inherits(Grids, _Component);
+var Grid = function (_Component) {
+  _inherits(Grid, _Component);
 
-  function Grids() {
-    _classCallCheck(this, Grids);
+  function Grid() {
+    _classCallCheck(this, Grid);
 
-    return _possibleConstructorReturn(this, (Grids.__proto__ || Object.getPrototypeOf(Grids)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).apply(this, arguments));
   }
 
-  _createClass(Grids, [{
+  _createClass(Grid, [{
     key: 'render',
     value: function render() {
+      var cell = (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' });
       return (0, _preact.h)(
         _elements2.default,
-        null,
+        { id: 'Grid' },
         (0, _preact.h)(
           _element2.default,
           { title: 'Grid' },
           (0, _preact.h)(
             'div',
             { className: 'Grid' },
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' })
+            [1, 2, 3, 4].map(function (i) {
+              return cell;
+            })
           )
         ),
         (0, _preact.h)(
@@ -1883,21 +2342,42 @@ var Grids = function (_Component) {
           (0, _preact.h)(
             'div',
             { className: 'Grid Grid--spaced' },
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' }),
-            (0, _preact.h)('div', { className: 'Grid-cell u-size1of2' })
+            [1, 2, 3, 4].map(function (i) {
+              return cell;
+            })
+          )
+        ),
+        (0, _preact.h)(
+          _element2.default,
+          { title: 'Grid spaced horizontally' },
+          (0, _preact.h)(
+            'div',
+            { className: 'Grid Grid--spacedHorizontally' },
+            [1, 2, 3, 4].map(function (i) {
+              return cell;
+            })
+          )
+        ),
+        (0, _preact.h)(
+          _element2.default,
+          { title: 'Grid spaced vertically' },
+          (0, _preact.h)(
+            'div',
+            { className: 'Grid Grid--spacedVertically' },
+            [1, 2, 3, 4].map(function (i) {
+              return cell;
+            })
           )
         )
       );
     }
   }]);
 
-  return Grids;
+  return Grid;
 }(_preact.Component);
 
-exports.default = Grids;
-},{"preact":7,"../layout/elements":15,"../layout/element":16}],5:[function(require,module,exports) {
+exports.default = Grid;
+},{"preact":5,"../layout/elements":13,"../layout/element":14}],4:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1907,6 +2387,10 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _preact = require('preact');
+
+var _preactRouter = require('preact-router');
+
+var _preactRouter2 = _interopRequireDefault(_preactRouter);
 
 var _nav = require('../layout/nav');
 
@@ -1924,9 +2408,9 @@ var _forms = require('./forms');
 
 var _forms2 = _interopRequireDefault(_forms);
 
-var _grids = require('./grids');
+var _grid = require('./grid');
 
-var _grids2 = _interopRequireDefault(_grids);
+var _grid2 = _interopRequireDefault(_grid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1942,23 +2426,34 @@ var App = function (_Component) {
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    _this.state = {
+      elements: ['Buttons', 'Forms', 'Colors', 'Grid']
+    };
+    return _this;
   }
 
   _createClass(App, [{
     key: 'render',
-    value: function render() {
+    value: function render(props, _ref) {
+      var elements = _ref.elements;
+
       return (0, _preact.h)(
         'div',
         { 'class': 'Page' },
-        (0, _preact.h)(_nav2.default, null),
+        (0, _preact.h)(_nav2.default, { elements: elements }),
         (0, _preact.h)(
           'main',
           { className: 'Page-main' },
-          (0, _preact.h)(_grids2.default, null),
-          (0, _preact.h)(_forms2.default, null),
-          (0, _preact.h)(_buttons2.default, null),
-          (0, _preact.h)(_colors2.default, null)
+          (0, _preact.h)(
+            _preactRouter2.default,
+            null,
+            (0, _preact.h)(_buttons2.default, { path: 'buttons' }),
+            (0, _preact.h)(_forms2.default, { path: 'forms' }),
+            (0, _preact.h)(_colors2.default, { path: 'colors' }),
+            (0, _preact.h)(_grid2.default, { path: 'grid' })
+          )
         )
       );
     }
@@ -1968,7 +2463,7 @@ var App = function (_Component) {
 }(_preact.Component);
 
 exports.default = App;
-},{"preact":7,"../layout/nav":9,"./buttons":10,"./colors":11,"./forms":13,"./grids":12}],3:[function(require,module,exports) {
+},{"preact":5,"preact-router":12,"../layout/nav":7,"./buttons":6,"./colors":8,"./forms":9,"./grid":10}],3:[function(require,module,exports) {
 'use strict';
 
 var _preact = require('preact');
@@ -1982,7 +2477,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appContainer = document.querySelector('#app');
 
 (0, _preact.render)((0, _preact.h)(_app2.default, null), appContainer, appContainer.lastChild);
-},{"preact":7,"./components/app":5}],17:[function(require,module,exports) {
+},{"preact":5,"./components/app":4}],24:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2012,7 +2507,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '61125' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59973' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2151,5 +2646,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[17,3])
+},{}]},{},[24,3])
 //# sourceMappingURL=/main.bbe18a00.map

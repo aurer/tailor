@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import Router from 'preact-router';
 import Nav from '../layout/nav';
 import Buttons from './buttons';
 import Colors from './colors';
@@ -23,10 +24,12 @@ export default class App extends Component {
       <div class="Page">
         <Nav elements={elements} />
         <main className="Page-main">
-          <Grid />
-          <Forms />
-          <Buttons />
-          <Colors />
+          <Router>
+            <Buttons path="buttons" />
+            <Forms path="forms" />
+            <Colors path="colors" />
+            <Grid path="grid" />
+          </Router>
         </main>
       </div>
     )

@@ -27,6 +27,10 @@
 			&:hover,
 			&:focus {
 				color: $color-secondary;
+			}
+
+			&.is-active {
+				color: $color-secondary;
 				border-color: $color-secondary;
 			}
 		}
