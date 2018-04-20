@@ -1,6 +1,5 @@
 .Grid {
 	position: relative;
-	margin-bottom: $space;
 }
 
 .Grid-cell:before {
@@ -19,4 +18,26 @@
 	.Grid-cell:first-child:before {
 		height: 80px;
 	}
+}
+
+
+.Grid--spacedVertically {
+	@include GridY();
+}
+
+.Grid--spacedHorizontally {
+	@include GridX();
+}
+
+.Grid--spacedSm {
+	@include GridXY($space-sm);
+}
+
+.Grid--spacedXs {
+	@include GridXY($space-xs);
+}
+
+
+.CSSGrid {
+	@include CSSGrid(2, $space);
 }

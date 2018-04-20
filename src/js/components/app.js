@@ -5,6 +5,7 @@ import Buttons from './buttons';
 import Colors from './colors';
 import Forms from './forms';
 import Grid from './grid';
+import Options from './options';
 
 export default class App extends Component {
   constructor() {
@@ -14,7 +15,8 @@ export default class App extends Component {
         'Buttons',
         'Forms',
         'Colors',
-        'Grid'
+        'Grid',
+        'Options'
       ]
     }
   }
@@ -29,6 +31,7 @@ export default class App extends Component {
             <Forms path="forms" />
             <Colors path="colors" />
             <Grid path="grid" />
+            <Options path="options" />
           </Router>
         </main>
       </div>
