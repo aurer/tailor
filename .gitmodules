@@ -1,3 +1,4 @@
 [submodule "src/sass/tailor"]
 	path = src/sass/tailor
+	branch = master
 	url = https://github.com/aurer/tailor-sass.git
