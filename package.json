@@ -8,11 +8,12 @@
     "preact-router": "^2.6.0"
   },
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "start": "rm -rf docs/* && parcel src/pug/index.pug -d docs",
+    "build": "rm -rf docs/* && parcel build src/pug/index.pug -d docs"
   },
   "devDependencies": {
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
     "typescript": "^2.8.1"
   }
 }

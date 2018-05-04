@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({6:[function(require,module,exports) {
+})({12:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1093,7 +1093,7 @@ exports.render = render;
 exports.rerender = rerender;
 exports.options = options;
 //# sourceMappingURL=preact.esm.js.map
-},{}],13:[function(require,module,exports) {
+},{}],22:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1476,7 +1476,7 @@ exports.Route = Route;
 exports.Link = Link;
 exports.default = Router;
 //# sourceMappingURL=preact-router.es.js.map
-},{"preact":6}],16:[function(require,module,exports) {
+},{"preact":12}],31:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1558,7 +1558,7 @@ exports.default = Match;
 
 Match.Link = Link;
 
-},{"preact":6,"preact-router":13}],7:[function(require,module,exports) {
+},{"preact":12,"preact-router":22}],17:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1622,7 +1622,7 @@ var Nav = function (_Component) {
 }(_preact.Component);
 
 exports.default = Nav;
-},{"preact":6,"preact-router/match":16}],14:[function(require,module,exports) {
+},{"preact":12,"preact-router/match":31}],29:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1666,7 +1666,7 @@ var Elements = function (_Component) {
 }(_preact.Component);
 
 exports.default = Elements;
-},{"preact":6}],15:[function(require,module,exports) {
+},{"preact":12}],30:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1794,7 +1794,7 @@ function prettyRender(VNode, depth) {
   }).join(tabs_before).trim() + "\n" + tabs_after;
   return node.outerHTML.replace("></", '>' + child + '</') + "\n";
 }
-},{"preact":6}],8:[function(require,module,exports) {
+},{"preact":12}],18:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1883,7 +1883,7 @@ var Buttons = function (_Component) {
 }(_preact.Component);
 
 exports.default = Buttons;
-},{"preact":6,"../layout/elements":14,"../layout/element":15}],10:[function(require,module,exports) {
+},{"preact":12,"../layout/elements":29,"../layout/element":30}],19:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2111,7 +2111,7 @@ var Forms = function (_Component) {
 }(_preact.Component);
 
 exports.default = Forms;
-},{"preact":6,"../layout/elements":14,"../layout/element":15}],11:[function(require,module,exports) {
+},{"preact":12,"../layout/elements":29,"../layout/element":30}],20:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2231,7 +2231,7 @@ var Grid = function (_Component) {
 }(_preact.Component);
 
 exports.default = Grid;
-},{"preact":6,"../layout/elements":14,"../layout/element":15}],12:[function(require,module,exports) {
+},{"preact":12,"../layout/elements":29,"../layout/element":30}],21:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2413,7 +2413,7 @@ var Options = function (_Component) {
 }(_preact.Component);
 
 exports.default = Options;
-},{"preact":6,"../layout/elements":14,"../layout/element":15}],5:[function(require,module,exports) {
+},{"preact":12,"../layout/elements":29,"../layout/element":30}],11:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2499,7 +2499,7 @@ var App = function (_Component) {
 }(_preact.Component);
 
 exports.default = App;
-},{"preact":6,"preact-router":13,"../layout/nav":7,"./buttons":8,"./forms":10,"./grid":11,"./options":12}],3:[function(require,module,exports) {
+},{"preact":12,"preact-router":22,"../layout/nav":17,"./buttons":18,"./forms":19,"./grid":20,"./options":21}],7:[function(require,module,exports) {
 'use strict';
 
 var _preact = require('preact');
@@ -2513,7 +2513,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appContainer = document.querySelector('#app');
 
 (0, _preact.render)((0, _preact.h)(_app2.default, null), appContainer, appContainer.lastChild);
-},{"preact":6,"./components/app":5}],22:[function(require,module,exports) {
+},{"preact":12,"./components/app":11}],35:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2543,7 +2543,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64528' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57108' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2682,5 +2682,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[22,3])
+},{}]},{},[35,7])
 //# sourceMappingURL=/main.016c2899.map
